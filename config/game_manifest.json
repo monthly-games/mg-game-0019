@@ -1,0 +1,14 @@
+{
+  "game_id": "game_0019",
+  "code_name": "MG-0019",
+  "title_kr": "길드 오브 방랑자들",
+  "title_en": "Guild of Wanderers",
+  "genre_tags": ["guild", "idle", "rpg", "coop", "boss"],
+  "target_region": ["KR", "SEA", "Global"],
+  "engine_version": "1.0.0",
+  "analytics_profile": "default_v1",
+  "created_at": "2026-01-01",
+  "status": "development",
+  "year": 2,
+  "role": "길드/협동 구조, 길드 상점/기여도/보상 구조 공통 모듈 실험"
+}

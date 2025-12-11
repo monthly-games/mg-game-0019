@@ -1,0 +1,157 @@
+{
+  "version": "0.1.0",
+  "chapters": [
+    {
+      "chapter_id": 1,
+      "name": "방랑의 시작",
+      "stages": [
+        {
+          "stage_id": "1-1",
+          "name": "첫 만남",
+          "type": "normal",
+          "energy_cost": 10,
+          "difficulty": 1,
+          "enemies": [
+            { "id": "goblin_scout", "count": 5 }
+          ],
+          "rewards": {
+            "gold": 200,
+            "exp": 50
+          },
+          "tutorial": true
+        },
+        {
+          "stage_id": "1-5",
+          "name": "숲의 수호자",
+          "type": "elite",
+          "energy_cost": 15,
+          "difficulty": 3,
+          "enemies": [
+            { "id": "forest_guardian", "count": 1 },
+            { "id": "goblin_warrior", "count": 3 }
+          ],
+          "rewards": {
+            "gold": 500,
+            "exp": 150,
+            "hero_shard": "ranger_common"
+          }
+        },
+        {
+          "stage_id": "1-10",
+          "name": "고블린 왕",
+          "type": "boss",
+          "energy_cost": 20,
+          "difficulty": 5,
+          "enemies": [
+            { "id": "goblin_king", "count": 1 }
+          ],
+          "rewards": {
+            "gold": 1000,
+            "exp": 300,
+            "gems": 50,
+            "first_clear_reward": {
+              "hero": "warrior_rare"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "chapter_id": 2,
+      "name": "어둠의 동굴",
+      "unlock_condition": "chapter_1_complete",
+      "stages": [
+        {
+          "stage_id": "2-10",
+          "name": "동굴의 지배자",
+          "type": "boss",
+          "energy_cost": 25,
+          "difficulty": 10,
+          "enemies": [
+            { "id": "cave_dragon", "count": 1 }
+          ],
+          "rewards": {
+            "gold": 2000,
+            "exp": 600,
+            "gems": 100,
+            "first_clear_reward": {
+              "equipment": "dragon_sword_epic"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "guild_bosses": [
+    {
+      "boss_id": "gb_001",
+      "name": "타락한 거인",
+      "tier": 1,
+      "unlock_guild_level": 1,
+      "max_hp": 10000000,
+      "duration_hours": 48,
+      "participation_rewards": {
+        "base": {
+          "guild_coins": 100,
+          "gold": 5000
+        },
+        "contribution_tiers": [
+          { "min_damage": 0, "guild_coins": 100, "gold": 5000 },
+          { "min_damage": 100000, "guild_coins": 150, "gold": 7500 },
+          { "min_damage": 500000, "guild_coins": 200, "gold": 10000 },
+          { "min_damage": 1000000, "guild_coins": 300, "gold": 15000 }
+        ]
+      },
+      "clear_rewards": {
+        "guild_coins": 500,
+        "gems": 100,
+        "legendary_equipment_box": 1
+      },
+      "rank_rewards": [
+        { "rank": 1, "guild_coins": 200, "gems": 50 },
+        { "rank": 2, "guild_coins": 150, "gems": 30 },
+        { "rank": 3, "guild_coins": 100, "gems": 20 }
+      ]
+    },
+    {
+      "boss_id": "gb_002",
+      "name": "고대의 드래곤",
+      "tier": 2,
+      "unlock_guild_level": 5,
+      "max_hp": 50000000,
+      "duration_hours": 72,
+      "participation_rewards": {
+        "base": {
+          "guild_coins": 200,
+          "gold": 10000
+        },
+        "contribution_tiers": [
+          { "min_damage": 0, "guild_coins": 200, "gold": 10000 },
+          { "min_damage": 500000, "guild_coins": 300, "gold": 15000 },
+          { "min_damage": 2000000, "guild_coins": 400, "gold": 20000 },
+          { "min_damage": 5000000, "guild_coins": 600, "gold": 30000 }
+        ]
+      },
+      "clear_rewards": {
+        "guild_coins": 1000,
+        "gems": 300,
+        "legendary_equipment_box": 3,
+        "hero_shard_legendary": 5
+      },
+      "rank_rewards": [
+        { "rank": 1, "guild_coins": 500, "gems": 200 },
+        { "rank": 2, "guild_coins": 300, "gems": 100 },
+        { "rank": 3, "guild_coins": 200, "gems": 50 }
+      ]
+    }
+  ],
+  "difficulty_scaling": {
+    "hp_per_level": 1.2,
+    "attack_per_level": 1.15,
+    "reward_per_level": 1.1
+  },
+  "guild_boss_scaling": {
+    "hp_per_tier": 5.0,
+    "guild_level_bonus": 0.1
+  }
+}

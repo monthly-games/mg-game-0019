@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "game_id": "game_0019",
+    "code_name": "MG-0019",
+    "title_kr": "길드 오브 방랑자들",
+    "title_en": "Guild of Wanderers",
+    "version": "0.1.0",
+    "last_updated": "2026-01-01"
+  },
+  "overview": {
+    "genre_tags": ["guild", "idle", "rpg", "coop", "boss"],
+    "target_audience": {
+      "age": "18-35",
+      "region": ["KR", "SEA", "Global"],
+      "play_style": "mid-core"
+    },
+    "core_loop": "길드원들과 협력하여 보스를 격파하고, 방치 수익으로 캐릭터를 성장시켜 더 강한 보스에 도전한다",
+    "unique_selling_point": "길드 협동 시스템과 방치 RPG의 결합, 길드 기여도 기반 보상 구조",
+    "year_2_role": "길드/협동 구조, 길드 상점/기여도/보상 구조 공통 모듈 실험"
+  },
+  "gameplay": {
+    "core_mechanics": [
+      {
+        "name": "길드 협동 보스",
+        "description": "길드원들과 협력하여 강력한 보스를 공략, 실시간 협동 또는 비동기 기여"
+      },
+      {
+        "name": "방치 성장",
+        "description": "오프라인 시간 동안 자원 자동 획득 및 캐릭터 성장"
+      },
+      {
+        "name": "길드 기여도 시스템",
+        "description": "길드 활동을 통한 기여도 누적, 기여도 기반 보상 및 혜택"
+      },
+      {
+        "name": "길드 상점",
+        "description": "길드 코인으로 특별 아이템 구매, 길드 레벨에 따라 상품 해금"
+      },
+      {
+        "name": "영웅 수집 및 육성",
+        "description": "다양한 영웅 수집, 레벨업, 장비, 스킬 강화"
+      }
+    ],
+    "progression": {
+      "type": "multi_tier",
+      "description": "개인 진행도(영웅 레벨, 장비), 길드 진행도(길드 레벨, 보스 티어)"
+    },
+    "session_length": "10-20분 (협동 보스), 1-3분 (일일 퀘스트, 수집)"
+  },
+  "guild_system": {
+    "max_members": 50,
+    "guild_levels": 50,
+    "guild_features": [
+      {
+        "name": "길드 보스 레이드",
+        "description": "길드원 전체가 협력하여 강력한 보스 격파",
+        "rewards": ["길드 코인", "전설 장비", "영웅 조각"]
+      },
+      {
+        "name": "길드 기여도",
+        "description": "보스 데미지, 일일 퀘스트, 길드 기부 등으로 기여도 획득",
+        "benefits": ["주간 보상", "상점 할인", "특별 아이템 접근"]
+      },
+      {
+        "name": "길드 상점",
+        "description": "길드 코인으로 특별 아이템 구매",
+        "items": ["영웅 조각", "전설 장비", "강화 재료", "스킨"]
+      },
+      {
+        "name": "길드 버프",
+        "description": "길드 레벨에 따라 모든 멤버가 받는 영구 버프",
+        "buffs": ["공격력 +%", "방어력 +%", "골드 획득량 +%", "경험치 +%"]
+      }
+    ]
+  },
+  "economy": {
+    "currencies": [
+      {
+        "name": "골드",
+        "type": "soft",
+        "sources": ["스테이지 클리어", "방치 수익", "퀘스트", "길드 보스"],
+        "sinks": ["영웅 레벨업", "장비 강화", "스킬 업그레이드"]
+      },
+      {
+        "name": "보석",
+        "type": "hard",
+        "sources": ["인앱 구매", "업적", "이벤트", "길드 보스 첫 클리어"],
+        "sinks": ["가챠", "에너지 충전", "골드 구매", "상점 프리미엄 아이템"]
+      },
+      {
+        "name": "길드 코인",
+        "type": "guild",
+        "sources": ["길드 보스 기여", "길드 퀘스트", "주간 기여도 보상"],
+        "sinks": ["길드 상점", "길드 버프 강화"]
+      },
+      {
+        "name": "에너지",
+        "type": "energy",
+        "max": 120,
+        "regen_rate": "1/6분",
+        "sources": ["시간 회복", "보석 구매", "길드 지원"],
+        "sinks": ["스테이지 입장", "개인 보스 도전"]
+      }
+    ],
+    "monetization": {
+      "model": "F2P + IAP",
+      "iap_items": ["보석 패키지", "월정액", "성장 패스", "스타터 팩", "길드 패키지"],
+      "ad_placements": ["보상형 광고 (에너지, 보상 2배)", "인터스티셜 (스테이지 사이)"]
+    }
+  },
+  "technical": {
+    "platform": ["Android", "iOS"],
+    "engine": "Flutter + Flame",
+    "backend": "Firebase + Custom Guild Server",
+    "analytics": "GA4 + BigQuery",
+    "multiplayer": "Real-time (길드 채팅, 보스 레이드) + Asynchronous (기여도 집계)"
+  },
+  "common_modules": {
+    "guild_framework": {
+      "description": "재사용 가능한 길드 시스템 프레임워크",
+      "features": ["길드 생성/관리", "멤버 관리", "기여도 추적", "보상 분배", "채팅"]
+    },
+    "contribution_system": {
+      "description": "범용 기여도 추적 및 보상 시스템",
+      "features": ["활동 추적", "포인트 집계", "등급 시스템", "보상 자동화"]
+    },
+    "guild_shop": {
+      "description": "길드 상점 프레임워크",
+      "features": ["상품 관리", "교환 시스템", "레벨별 해금", "할인/이벤트"]
+    }
+  }
+}
