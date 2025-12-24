@@ -1,4 +1,13 @@
-# game_0019 수익화 전략 - 길드 오브 방랑자들
+﻿# game_0019 수익화 전략 - 길드 오브 방랑자들
+
+> game_id: game_0019
+> repo: mg-game-0019
+> title_kr: 길드 오브 방랑자들
+> title_en: Guild of Wanderers
+> genre_tags: guild, idle, rpg, coop, boss
+> doc_type: monetization_design
+> source_of_truth: docs/design/gdd_game_0019.json
+> last_updated: 2025-12-19
 
 ## 게임 개요
 - **장르**: 길드 경영 + 협동 + JRPG

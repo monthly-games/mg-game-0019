@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'hero_data.dart';
 import '../player/player_manager.dart';
+import '../guild/guild_manager.dart';
 
 /// Player's hero instance with level and equipment
 class HeroInstance {
@@ -35,12 +36,7 @@ class HeroInstance {
 
   /// Serialize to JSON
   Map<String, dynamic> toJson() {
-    return {
-      'heroId': heroId,
-      'level': level,
-      'exp': exp,
-      'isInTeam': isInTeam,
-    };
+    return {'heroId': heroId, 'level': level, 'exp': exp, 'isInTeam': isInTeam};
   }
 
   /// Deserialize from JSON
@@ -55,8 +51,10 @@ class HeroInstance {
 }
 
 /// Hero collection and team management
+/// Hero collection and team management
 class HeroManager extends ChangeNotifier {
   final PlayerManager _playerManager;
+  final GuildManager? _guildManager; // Optional dependency
 
   // Hero collection (heroId -> HeroInstance)
   final Map<String, HeroInstance> _ownedHeroes = {};
@@ -65,8 +63,11 @@ class HeroManager extends ChangeNotifier {
   final List<String> _teamHeroIds = [];
   static const int maxTeamSize = 5;
 
-  HeroManager({required PlayerManager playerManager})
-      : _playerManager = playerManager {
+  HeroManager({
+    required PlayerManager playerManager,
+    GuildManager? guildManager,
+  }) : _playerManager = playerManager,
+       _guildManager = guildManager {
     // Give starter heroes
     _giveStarterHeroes();
   }
@@ -139,6 +140,23 @@ class HeroManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Get effective stats including guild buffs
+  HeroStats? getHeroStats(String heroId) {
+    final instance = _ownedHeroes[heroId];
+    if (instance == null) return null;
+
+    var stats = instance.currentStats;
+    if (stats == null) return null;
+
+    if (_guildManager != null) {
+      stats = stats.applyGuildBuffs(
+        attackBonus: _guildManager!.getAttackBuff(),
+        defenseBonus: _guildManager!.getDefenseBuff(),
+      );
+    }
+    return stats;
+  }
+
   /// Add hero to team
   bool addToTeam(String heroId) {
     if (!_ownedHeroes.containsKey(heroId)) return false;
@@ -165,13 +183,12 @@ class HeroManager extends ChangeNotifier {
     return true;
   }
 
-  /// Calculate total team power
   int getTeamPower() {
     int totalPower = 0;
     for (final heroId in _teamHeroIds) {
-      final instance = _ownedHeroes[heroId];
-      if (instance?.currentStats != null) {
-        totalPower += instance!.currentStats!.power.round();
+      final stats = getHeroStats(heroId);
+      if (stats != null) {
+        totalPower += stats.power.round();
       }
     }
     return totalPower;
@@ -192,7 +209,9 @@ class HeroManager extends ChangeNotifier {
   /// Serialize for saving
   Map<String, dynamic> toJson() {
     return {
-      'ownedHeroes': _ownedHeroes.map((key, value) => MapEntry(key, value.toJson())),
+      'ownedHeroes': _ownedHeroes.map(
+        (key, value) => MapEntry(key, value.toJson()),
+      ),
       'teamHeroIds': _teamHeroIds,
     };
   }
@@ -205,7 +224,9 @@ class HeroManager extends ChangeNotifier {
     final ownedData = data['ownedHeroes'] as Map<String, dynamic>?;
     if (ownedData != null) {
       ownedData.forEach((key, value) {
-        _ownedHeroes[key] = HeroInstance.fromJson(value as Map<String, dynamic>);
+        _ownedHeroes[key] = HeroInstance.fromJson(
+          value as Map<String, dynamic>,
+        );
       });
     }
 

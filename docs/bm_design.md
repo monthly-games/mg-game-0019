@@ -1,7 +1,13 @@
-# 길드 오브 방랑자들 - BM 설계 문서
+﻿# 길드 오브 방랑자들 - BM 설계 문서
 
 > game_id: game_0019
 > repo: mg-game-0019
+> title_kr: 길드 오브 방랑자들
+> title_en: Guild of Wanderers
+> genre_tags: guild, idle, rpg, coop, boss
+> doc_type: bm_design
+> source_of_truth: docs/design/gdd_game_0019.json
+> last_updated: 2025-12-19
 
 ---
 
