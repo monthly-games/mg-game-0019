@@ -260,16 +260,16 @@ int contributionReward(int rank, int totalContribution) {
 ## 6. 프로덕션 체크리스트
 
 ### 핵심 기능
-- [ ] 길드 시스템
-- [ ] 협동 보스 레이드
+- [x] 길드 시스템 (GuildManager: 생성/가입, 레벨/경험치, 기부)
+- [x] 협동 보스 레이드 (RaidManager: 자동 공격, 클릭 데미지, 스테이지 진행)
 - [ ] 기여도 시스템
 - [ ] 길드 상점
-- [ ] 영웅 수집/육성
+- [x] 영웅 수집/육성 (HeroManager: 레벨업, 경험치, 팀 편성 최대 5인)
 
 ### 콘텐츠
-- [ ] 50+ 영웅
-- [ ] 10+ 보스
-- [ ] 길드 버프 시스템
+- [x] 영웅 데이터 (HeroData: 스타터 2종, 희귀도별 스탯)
+- [x] 보스 생성 (RaidBoss: 스테이지별 HP/보상 스케일링)
+- [x] 길드 버프 시스템 (공격/방어 버프, 길드 레벨당 1%)
 - [ ] 길드 대전
 - [ ] 튜토리얼
 
@@ -317,3 +317,4 @@ int contributionReward(int rank, int totalContribution) {
 ---
 
 *마지막 업데이트: 2025-12-19*
+
