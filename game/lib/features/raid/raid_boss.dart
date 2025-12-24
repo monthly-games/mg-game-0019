@@ -32,9 +32,9 @@ class RaidBoss {
     final gold = (50 * scale).round(); // Gold scales with difficulty
 
     String bossName = 'Stage $stage Boss';
-    if (stage == 1)
+    if (stage == 1) {
       bossName = 'Slime King';
-    else if (stage == 2)
+    } else if (stage == 2)
       bossName = 'Goblin Warlord';
     else if (stage == 3)
       bossName = 'Giant Golem';

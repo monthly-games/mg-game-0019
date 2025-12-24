@@ -45,8 +45,9 @@ class RaidManager extends ChangeNotifier {
   void _startAutoAttackLoop() {
     _autoAttackTimer?.cancel();
     _autoAttackTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (!_isAutoBattleActive || _currentBoss == null || _currentBoss!.isDead)
+      if (!_isAutoBattleActive || _currentBoss == null || _currentBoss!.isDead) {
         return;
+      }
 
       final damage = teamDps.round(); // 1 tick = 1 second DPS
       if (damage > 0) {

@@ -54,7 +54,7 @@ void main() {
       expect(dps, greaterThan(0));
 
       // 1 hour offline
-      final duration = const Duration(hours: 1);
+      const duration = Duration(hours: 1);
       final gold = raidManager.calculateOfflineGold(duration);
 
       // Expected: DPS * 0.1 * 3600

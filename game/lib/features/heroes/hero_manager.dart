@@ -150,8 +150,8 @@ class HeroManager extends ChangeNotifier {
 
     if (_guildManager != null) {
       stats = stats.applyGuildBuffs(
-        attackBonus: _guildManager!.getAttackBuff(),
-        defenseBonus: _guildManager!.getDefenseBuff(),
+        attackBonus: _guildManager.getAttackBuff(),
+        defenseBonus: _guildManager.getDefenseBuff(),
       );
     }
     return stats;

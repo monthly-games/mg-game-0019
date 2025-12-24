@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../features/heroes/hero_manager.dart';
-import '../features/heroes/hero_data.dart';
-import 'package:mg_common_game/core/ui/theme/app_colors.dart';
 
 class HeroScreen extends StatelessWidget {
   const HeroScreen({super.key});

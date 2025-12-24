@@ -184,7 +184,7 @@ class HeroesScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('경험치', style: AppTextStyles.caption),
+                    const Text('경험치', style: AppTextStyles.caption),
                     Text(
                       '${instance.exp}/${instance.expForNextLevel}',
                       style: AppTextStyles.caption.copyWith(color: Colors.amber),
@@ -327,7 +327,7 @@ class HeroesScreen extends StatelessWidget {
             const SizedBox(height: 16),
             Text('레벨: ${instance.level} → ${instance.level + 1}'),
             const SizedBox(height: 8),
-            Text('모든 스탯 +10%'),
+            const Text('모든 스탯 +10%'),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

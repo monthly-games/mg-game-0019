@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../features/raid/raid_manager.dart';
-import 'package:mg_common_game/core/ui/theme/app_colors.dart';
 import '../game/components/floating_text_widget.dart'; // Import
 import 'package:mg_common_game/core/audio/audio_manager.dart';
 import 'package:get_it/get_it.dart';

@@ -131,10 +131,10 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return MaterialApp(
+      return const MaterialApp(
         home: Scaffold(
           backgroundColor: AppColors.background,
-          body: const Center(child: CircularProgressIndicator()),
+          body: Center(child: CircularProgressIndicator()),
         ),
       );
     }

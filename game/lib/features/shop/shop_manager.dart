@@ -78,9 +78,9 @@ class ShopManager extends ChangeNotifier {
     final roll = _rng.nextDouble();
     HeroRarity rarity;
 
-    if (roll < rateMythic)
+    if (roll < rateMythic) {
       rarity = HeroRarity.mythic;
-    else if (roll < rateMythic + rateLegendary)
+    } else if (roll < rateMythic + rateLegendary)
       rarity = HeroRarity.legendary;
     else if (roll < rateMythic + rateLegendary + rateEpic)
       rarity = HeroRarity.epic;

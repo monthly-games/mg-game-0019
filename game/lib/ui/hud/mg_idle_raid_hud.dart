@@ -38,7 +38,7 @@ class MGIdleRaidHud extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.all(MGSpacing.sm),
+        padding: const EdgeInsets.all(MGSpacing.sm),
         child: Column(
           children: [
             // 상단 HUD
@@ -57,7 +57,7 @@ class MGIdleRaidHud extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(width: MGSpacing.sm),
+                const SizedBox(width: MGSpacing.sm),
                 if (onPause != null)
                   MGIconButton(
                     icon: Icons.pause,
@@ -66,13 +66,13 @@ class MGIdleRaidHud extends StatelessWidget {
                   ),
               ],
             ),
-            SizedBox(height: MGSpacing.sm),
+            const SizedBox(height: MGSpacing.sm),
             // DPS 표시
             _buildDpsInfo(),
             const Spacer(),
             // 하단: 보스 HP
             _buildBossHpBar(),
-            SizedBox(height: MGSpacing.sm),
+            const SizedBox(height: MGSpacing.sm),
             // 오토 배틀 버튼
             if (onToggleAuto != null) _buildAutoButton(),
           ],
@@ -83,7 +83,7 @@ class MGIdleRaidHud extends StatelessWidget {
 
   Widget _buildStageInfo() {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: MGSpacing.md,
         vertical: MGSpacing.xs,
       ),
@@ -100,8 +100,8 @@ class MGIdleRaidHud extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.flag, color: Colors.white, size: 20),
-          SizedBox(width: MGSpacing.xs),
+          const Icon(Icons.flag, color: Colors.white, size: 20),
+          const SizedBox(width: MGSpacing.xs),
           Text(
             'Stage $stage',
             style: MGTextStyles.buttonMedium.copyWith(
@@ -116,7 +116,7 @@ class MGIdleRaidHud extends StatelessWidget {
 
   Widget _buildDpsInfo() {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: MGSpacing.sm,
         vertical: MGSpacing.xs,
       ),
@@ -128,8 +128,8 @@ class MGIdleRaidHud extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           // 클릭 데미지
-          Icon(Icons.touch_app, color: Colors.orange, size: 16),
-          SizedBox(width: MGSpacing.xxs),
+          const Icon(Icons.touch_app, color: Colors.orange, size: 16),
+          const SizedBox(width: MGSpacing.xxs),
           Text(
             '$clickDamage',
             style: MGTextStyles.caption.copyWith(
@@ -137,10 +137,10 @@ class MGIdleRaidHud extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(width: MGSpacing.md),
+          const SizedBox(width: MGSpacing.md),
           // 팀 DPS
-          Icon(Icons.auto_awesome, color: Colors.cyan, size: 16),
-          SizedBox(width: MGSpacing.xxs),
+          const Icon(Icons.auto_awesome, color: Colors.cyan, size: 16),
+          const SizedBox(width: MGSpacing.xxs),
           Text(
             '${teamDps.toInt()} DPS',
             style: MGTextStyles.caption.copyWith(
@@ -157,7 +157,7 @@ class MGIdleRaidHud extends StatelessWidget {
     final double hpRatio = bossMaxHp > 0 ? bossHp / bossMaxHp : 0;
 
     return Container(
-      padding: EdgeInsets.all(MGSpacing.sm),
+      padding: const EdgeInsets.all(MGSpacing.sm),
       decoration: BoxDecoration(
         color: MGColors.surface.withOpacity(0.85),
         borderRadius: BorderRadius.circular(MGSpacing.sm),
@@ -170,8 +170,8 @@ class MGIdleRaidHud extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.dangerous, color: Colors.red, size: 18),
-              SizedBox(width: MGSpacing.xs),
+              const Icon(Icons.dangerous, color: Colors.red, size: 18),
+              const SizedBox(width: MGSpacing.xs),
               Text(
                 bossName,
                 style: MGTextStyles.buttonMedium.copyWith(
@@ -181,7 +181,7 @@ class MGIdleRaidHud extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: MGSpacing.xs),
+          const SizedBox(height: MGSpacing.xs),
           // HP 바
           MGLinearProgress(
             value: hpRatio,
@@ -189,7 +189,7 @@ class MGIdleRaidHud extends StatelessWidget {
             backgroundColor: Colors.red.withOpacity(0.2),
             progressColor: Colors.red,
           ),
-          SizedBox(height: MGSpacing.xxs),
+          const SizedBox(height: MGSpacing.xxs),
           Text(
             '$bossHp / $bossMaxHp',
             style: MGTextStyles.caption.copyWith(
@@ -205,7 +205,7 @@ class MGIdleRaidHud extends StatelessWidget {
     return GestureDetector(
       onTap: onToggleAuto,
       child: Container(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: MGSpacing.lg,
           vertical: MGSpacing.sm,
         ),
@@ -227,7 +227,7 @@ class MGIdleRaidHud extends StatelessWidget {
               color: isAutoBattle ? Colors.white : Colors.grey,
               size: 20,
             ),
-            SizedBox(width: MGSpacing.xs),
+            const SizedBox(width: MGSpacing.xs),
             Text(
               isAutoBattle ? 'AUTO ON' : 'AUTO OFF',
               style: MGTextStyles.buttonMedium.copyWith(
