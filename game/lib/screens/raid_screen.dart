@@ -91,7 +91,7 @@ class _RaidScreenState extends State<RaidScreen> {
                                 width: 200,
                                 height: 200,
                                 decoration: BoxDecoration(
-                                  color: Colors.red.withOpacity(0.2),
+                                  color: Colors.red.withValues(alpha: 0.2),
                                   shape: BoxShape.circle,
                                 ),
                                 child: const Icon(

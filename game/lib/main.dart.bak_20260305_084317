@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:mg_common_game/systems/systems.dart';
 import 'package:mg_common_game/systems/progression/achievement_manager.dart';
 import 'package:mg_common_game/systems/quests/daily_quest.dart';
 import 'package:flutter/services.dart';
@@ -18,12 +16,8 @@ import 'features/shop/shop_manager.dart'; // Import
 import 'features/save/save_manager.dart';
 import 'features/raid/raid_manager.dart';
 import 'screens/home_screen.dart';
-import 'screens/daily_quest_screen.dart';
-import 'screens/achievement_screen.dart';
 import 'game/ui/offline_reward_dialog.dart'; // Import
 import 'package:mg_common_game/systems/progression/prestige_manager.dart';
-import 'screens/battlepass_screen.dart';
-import 'screens/gacha_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,11 +39,6 @@ void _setupDI() {
   if (!GetIt.I.isRegistered<PrestigeManager>()) {
     final prestigeManager = PrestigeManager();
     GetIt.I.registerSingleton(prestigeManager);
-  // Collection 시스템
-  if (!GetIt.I.isRegistered<CollectionManager>()) {
-    GetIt.I.registerSingleton(CollectionManager());
-    _registerCollections();
-  }
     _setupPrestige(prestigeManager);
   }
   _registerAchievements();
@@ -195,11 +184,15 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
           category: hero.heroClass.name,
         );
       }).toList(),
-      completionReward: const mg_systems.CollectionReward(type: RewardType.gold, amount: 50000),
+      completionReward: const mg_systems.CollectionReward(
+        gold: 50000,
+        gems: 1000,
+        experience: 5000,
+      ),
       milestoneRewards: const {
-        25: mg_systems.CollectionReward(type: RewardType.gold, amount: 5000),
-        50: mg_systems.CollectionReward(type: RewardType.gold, amount: 15000),
-        75: mg_systems.CollectionReward(type: RewardType.gold, amount: 30000),
+        25: mg_systems.CollectionReward(gold: 5000, gems: 100, experience: 500),
+        50: mg_systems.CollectionReward(gold: 15000, gems: 300, experience: 1500),
+        75: mg_systems.CollectionReward(gold: 30000, gems: 600, experience: 3000),
       },
     ));
 
@@ -245,14 +238,6 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
           ),
         ),
         home: const HomeScreen(),
-        routes: {
-          '/daily-quests': (_) => const DailyQuestScreen(),
-          '/achievements': (_) => const AchievementScreen(),
-          '/daily_quest': (_) => const DailyQuestScreen(),
-          '/achievement': (_) => const AchievementScreen(),
-          '/battlepass': (_) => const BattlePassScreen(),
-          '/gacha': (_) => const GachaScreen(),
-        },
       ),
     );
   }

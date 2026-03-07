@@ -59,7 +59,7 @@ class PlayerManager extends ChangeNotifier {
   }
 
   /// Spend gold
-  bool spendGold(int amount) {
+  bool trySpendGold(int amount) {
     if (_gold < amount) return false;
     _gold -= amount;
     notifyListeners();

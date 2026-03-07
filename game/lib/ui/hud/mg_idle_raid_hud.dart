@@ -90,8 +90,8 @@ class MGIdleRaidHud extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            MGColors.primaryAction.withOpacity(0.8),
-            MGColors.primaryAction.withOpacity(0.4),
+            MGColors.primaryAction.withValues(alpha: 0.8),
+            MGColors.primaryAction.withValues(alpha: 0.4),
           ],
         ),
         borderRadius: BorderRadius.circular(MGSpacing.sm),
@@ -121,7 +121,7 @@ class MGIdleRaidHud extends StatelessWidget {
         vertical: MGSpacing.xs,
       ),
       decoration: BoxDecoration(
-        color: MGColors.surface.withOpacity(0.7),
+        color: MGColors.surface.withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(MGSpacing.xs),
       ),
       child: Row(
@@ -159,9 +159,9 @@ class MGIdleRaidHud extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(MGSpacing.sm),
       decoration: BoxDecoration(
-        color: MGColors.surface.withOpacity(0.85),
+        color: MGColors.surface.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(MGSpacing.sm),
-        border: Border.all(color: Colors.red.withOpacity(0.5)),
+        border: Border.all(color: Colors.red.withValues(alpha: 0.5)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -186,7 +186,7 @@ class MGIdleRaidHud extends StatelessWidget {
           MGLinearProgress(
             value: hpRatio,
             height: 16,
-            backgroundColor: Colors.red.withOpacity(0.2),
+            backgroundColor: Colors.red.withValues(alpha: 0.2),
             progressColor: Colors.red,
           ),
           const SizedBox(height: MGSpacing.xxs),
@@ -211,8 +211,8 @@ class MGIdleRaidHud extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: isAutoBattle
-              ? Colors.green.withOpacity(0.8)
-              : MGColors.surface.withOpacity(0.8),
+              ? Colors.green.withValues(alpha: 0.8)
+              : MGColors.surface.withValues(alpha: 0.8),
           borderRadius: BorderRadius.circular(MGSpacing.sm),
           border: Border.all(
             color: isAutoBattle ? Colors.greenAccent : MGColors.border,

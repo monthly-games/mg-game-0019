@@ -42,7 +42,7 @@ class GuildManager extends ChangeNotifier {
     if (_guild != null) return false;
 
     // Cost 1000 Gold
-    if (_playerManager.spendGold(1000)) {
+    if (_playerManager.trySpendGold(1000)) {
       _guild = Guild(name: name);
       notifyListeners();
       return true;
@@ -66,7 +66,7 @@ class GuildManager extends ChangeNotifier {
     if (_guild == null) return false;
 
     // Donate 100 Gold -> 10 Guild Exp
-    if (_playerManager.spendGold(100)) {
+    if (_playerManager.trySpendGold(100)) {
       _guild!.addExp(10);
       notifyListeners();
       return true;

@@ -195,11 +195,15 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
           category: hero.heroClass.name,
         );
       }).toList(),
-      completionReward: const mg_systems.CollectionReward(type: RewardType.gold, amount: 50000),
+      completionReward: const mg_systems.CollectionReward(
+        gold: 50000,
+        gems: 1000,
+        experience: 5000,
+      ),
       milestoneRewards: const {
-        25: mg_systems.CollectionReward(type: RewardType.gold, amount: 5000),
-        50: mg_systems.CollectionReward(type: RewardType.gold, amount: 15000),
-        75: mg_systems.CollectionReward(type: RewardType.gold, amount: 30000),
+        25: mg_systems.CollectionReward(gold: 5000, gems: 100, experience: 500),
+        50: mg_systems.CollectionReward(gold: 15000, gems: 300, experience: 1500),
+        75: mg_systems.CollectionReward(gold: 30000, gems: 600, experience: 3000),
       },
     ));
 

@@ -39,7 +39,7 @@ class HeroScreen extends StatelessWidget {
                         width: 60,
                         height: 60,
                         decoration: BoxDecoration(
-                          color: hero.rarityColor.withOpacity(0.2),
+                          color: hero.rarityColor.withValues(alpha: 0.2),
                           border: Border.all(color: hero.rarityColor),
                           borderRadius: BorderRadius.circular(8),
                         ),

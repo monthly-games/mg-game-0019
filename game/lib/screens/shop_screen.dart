@@ -167,7 +167,7 @@ class ShopScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               final hero = heroes[index];
               return Card(
-                color: hero.rarityColor.withOpacity(0.3),
+                color: hero.rarityColor.withValues(alpha: 0.3),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

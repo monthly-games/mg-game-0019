@@ -116,7 +116,7 @@ class HeroManager extends ChangeNotifier {
     if (instance == null) return false;
 
     final cost = instance.getLevelUpCost();
-    if (!_playerManager.spendGold(cost)) return false;
+    if (!_playerManager.trySpendGold(cost)) return false;
 
     instance.level++;
     instance.exp = 0;
