@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 class FloatingText extends StatefulWidget {
   final String text;
@@ -11,7 +12,7 @@ class FloatingText extends StatefulWidget {
     required this.text,
     required this.position,
     required this.onFinished,
-    this.color = Colors.white,
+    this.color = MGColors.textHighEmphasis,
   });
 
   @override

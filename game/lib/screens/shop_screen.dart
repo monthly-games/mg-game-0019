@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../features/shop/shop_manager.dart';
 import '../features/heroes/hero_data.dart'
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
     as hero_data; // Alias to avoid clash if any
 
 class ShopScreen extends StatelessWidget {

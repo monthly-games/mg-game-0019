@@ -6,6 +6,7 @@ import 'package:mg_common_game/core/ui/theme/app_text_styles.dart';
 import '../features/player/player_manager.dart';
 import '../features/heroes/hero_manager.dart';
 import '../features/heroes/hero_data.dart' show Hero, HeroRarity;
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 class HeroesScreen extends StatelessWidget {
   const HeroesScreen({super.key});
@@ -99,7 +100,7 @@ class HeroesScreen extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         hero.description,
-                        style: AppTextStyles.caption.copyWith(color: Colors.grey),
+                        style: AppTextStyles.caption.copyWith(color: MGColors.common),
                       ),
                       const SizedBox(height: 8),
                       Row(
@@ -126,17 +127,17 @@ class HeroesScreen extends StatelessWidget {
             // Stats
             Row(
               children: [
-                Expanded(child: _buildStatItem('HP', stats.hp, Icons.favorite, Colors.red)),
+                Expanded(child: _buildStatItem('HP', stats.hp, Icons.favorite, MGColors.error)),
                 const SizedBox(width: 8),
-                Expanded(child: _buildStatItem('공격', stats.attack, Icons.flash_on, Colors.orange)),
+                Expanded(child: _buildStatItem('공격', stats.attack, Icons.flash_on, MGColors.warning)),
               ],
             ),
             const SizedBox(height: 8),
             Row(
               children: [
-                Expanded(child: _buildStatItem('방어', stats.defense, Icons.shield, Colors.blue)),
+                Expanded(child: _buildStatItem('방어', stats.defense, Icons.shield, MGColors.info)),
                 const SizedBox(width: 8),
-                Expanded(child: _buildStatItem('속도', stats.speed, Icons.speed, Colors.green)),
+                Expanded(child: _buildStatItem('속도', stats.speed, Icons.speed, MGColors.success)),
               ],
             ),
 
@@ -229,7 +230,7 @@ class HeroesScreen extends StatelessWidget {
                     icon: Icon(instance.isInTeam ? Icons.remove_circle : Icons.add_circle),
                     label: Text(instance.isInTeam ? '팀에서 제외' : '팀에 추가'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: instance.isInTeam ? Colors.red : Colors.green,
+                      backgroundColor: instance.isInTeam ? MGColors.error : MGColors.success,
                     ),
                   ),
                 ),
@@ -348,7 +349,7 @@ class HeroesScreen extends StatelessWidget {
             if (player.gold < cost)
               const Text(
                 '골드가 부족합니다!',
-                style: TextStyle(color: Colors.red),
+                style: TextStyle(color: MGColors.error),
               ),
           ],
         ),

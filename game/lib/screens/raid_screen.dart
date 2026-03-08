@@ -4,6 +4,7 @@ import '../features/raid/raid_manager.dart';
 import '../game/components/floating_text_widget.dart'; // Import
 import 'package:mg_common_game/core/audio/audio_manager.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 class RaidScreen extends StatefulWidget {
   const RaidScreen({super.key});
@@ -24,7 +25,7 @@ class _RaidScreenState extends State<RaidScreen> {
           key: key,
           text: damage.toString(),
           position: details.localPosition, // Relative to stack?
-          color: Colors.white,
+          color: MGColors.textHighEmphasis,
           onFinished: () {
             setState(() {
               _floatingTexts.removeWhere((w) => w.key == key);
@@ -91,13 +92,13 @@ class _RaidScreenState extends State<RaidScreen> {
                                 width: 200,
                                 height: 200,
                                 decoration: BoxDecoration(
-                                  color: Colors.red.withValues(alpha: 0.2),
+                                  color: MGColors.error.withValues(alpha: 0.2),
                                   shape: BoxShape.circle,
                                 ),
                                 child: const Icon(
                                   Icons.bug_report,
                                   size: 100,
-                                  color: Colors.red,
+                                  color: MGColors.error,
                                 ),
                               ),
                             ],
@@ -121,7 +122,7 @@ class _RaidScreenState extends State<RaidScreen> {
                         minHeight: 20,
                         backgroundColor: Colors.grey[800],
                         valueColor: const AlwaysStoppedAnimation<Color>(
-                          Colors.red,
+                          MGColors.error,
                         ),
                       ),
                       const SizedBox(height: 5),
@@ -141,7 +142,7 @@ class _RaidScreenState extends State<RaidScreen> {
                       ElevatedButton(
                         onPressed: raid.toggleAutoBattle,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey, // Simple style
+                          backgroundColor: MGColors.common, // Simple style
                         ),
                         // Note: RaidManager doesn't expose isAutoBattleActive getter publicy in interface seen?
                         // Ah, line 82 of RaidManager has toggleAutoBattle but line 13 _isAutoBattleActive is private.

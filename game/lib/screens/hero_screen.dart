@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../features/heroes/hero_manager.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 class HeroScreen extends StatelessWidget {
   const HeroScreen({super.key});
@@ -72,7 +73,7 @@ class HeroScreen extends StatelessWidget {
                               'ATK: ${stats.attack} / HP: ${stats.hp}',
                               style: const TextStyle(
                                 fontSize: 12,
-                                color: Colors.grey,
+                                color: MGColors.common,
                               ),
                             ),
                           ],
@@ -92,8 +93,8 @@ class HeroScreen extends StatelessWidget {
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: instance.isInTeam
-                                  ? Colors.red
-                                  : Colors.green,
+                                  ? MGColors.error
+                                  : MGColors.success,
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 12,
                               ),

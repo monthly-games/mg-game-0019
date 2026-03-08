@@ -100,12 +100,12 @@ class MGIdleRaidHud extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.flag, color: Colors.white, size: 20),
+          const Icon(Icons.flag, color: MGColors.textHighEmphasis, size: 20),
           const SizedBox(width: MGSpacing.xs),
           Text(
             'Stage $stage',
             style: MGTextStyles.buttonMedium.copyWith(
-              color: Colors.white,
+              color: MGColors.textHighEmphasis,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -128,12 +128,12 @@ class MGIdleRaidHud extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           // 클릭 데미지
-          const Icon(Icons.touch_app, color: Colors.orange, size: 16),
+          const Icon(Icons.touch_app, color: MGColors.warning, size: 16),
           const SizedBox(width: MGSpacing.xxs),
           Text(
             '$clickDamage',
             style: MGTextStyles.caption.copyWith(
-              color: Colors.orange,
+              color: MGColors.warning,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -161,7 +161,7 @@ class MGIdleRaidHud extends StatelessWidget {
       decoration: BoxDecoration(
         color: MGColors.surface.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(MGSpacing.sm),
-        border: Border.all(color: Colors.red.withValues(alpha: 0.5)),
+        border: Border.all(color: MGColors.error.withValues(alpha: 0.5)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -170,12 +170,12 @@ class MGIdleRaidHud extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.dangerous, color: Colors.red, size: 18),
+              const Icon(Icons.dangerous, color: MGColors.error, size: 18),
               const SizedBox(width: MGSpacing.xs),
               Text(
                 bossName,
                 style: MGTextStyles.buttonMedium.copyWith(
-                  color: Colors.red,
+                  color: MGColors.error,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -186,14 +186,14 @@ class MGIdleRaidHud extends StatelessWidget {
           MGLinearProgress(
             value: hpRatio,
             height: 16,
-            backgroundColor: Colors.red.withValues(alpha: 0.2),
-            progressColor: Colors.red,
+            backgroundColor: MGColors.error.withValues(alpha: 0.2),
+            progressColor: MGColors.error,
           ),
           const SizedBox(height: MGSpacing.xxs),
           Text(
             '$bossHp / $bossMaxHp',
             style: MGTextStyles.caption.copyWith(
-              color: Colors.white,
+              color: MGColors.textHighEmphasis,
             ),
           ),
         ],
@@ -211,7 +211,7 @@ class MGIdleRaidHud extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: isAutoBattle
-              ? Colors.green.withValues(alpha: 0.8)
+              ? MGColors.success.withValues(alpha: 0.8)
               : MGColors.surface.withValues(alpha: 0.8),
           borderRadius: BorderRadius.circular(MGSpacing.sm),
           border: Border.all(
@@ -224,14 +224,14 @@ class MGIdleRaidHud extends StatelessWidget {
           children: [
             Icon(
               isAutoBattle ? Icons.play_circle : Icons.play_circle_outline,
-              color: isAutoBattle ? Colors.white : Colors.grey,
+              color: isAutoBattle ? MGColors.textHighEmphasis : MGColors.common,
               size: 20,
             ),
             const SizedBox(width: MGSpacing.xs),
             Text(
               isAutoBattle ? 'AUTO ON' : 'AUTO OFF',
               style: MGTextStyles.buttonMedium.copyWith(
-                color: isAutoBattle ? Colors.white : Colors.grey,
+                color: isAutoBattle ? MGColors.textHighEmphasis : MGColors.common,
                 fontWeight: FontWeight.bold,
               ),
             ),

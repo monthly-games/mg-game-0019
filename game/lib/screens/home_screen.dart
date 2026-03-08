@@ -5,6 +5,7 @@ import 'raid_screen.dart';
 import 'hero_screen.dart';
 import 'guild_screen.dart';
 import 'shop_screen.dart'; // Import
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -49,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(width: 4),
                     Text('${player.gold}'),
                     const SizedBox(width: 16),
-                    const Icon(Icons.diamond, color: Colors.blue, size: 20),
+                    const Icon(Icons.diamond, color: MGColors.info, size: 20),
                     const SizedBox(width: 4),
                     Text('${player.gems}'),
                     const SizedBox(width: 16),
@@ -79,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: MGColors.common,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed, // To show 4+ items correctly
       ),
