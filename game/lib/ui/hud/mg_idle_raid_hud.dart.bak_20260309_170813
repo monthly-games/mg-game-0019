@@ -19,7 +19,6 @@ class MGIdleRaidHud extends StatelessWidget {
   final bool isAutoBattle;
   final VoidCallback? onPause;
   final VoidCallback? onToggleAuto;
-  final VoidCallback? onDailyHub;
 
   const MGIdleRaidHud({
     super.key,
@@ -33,7 +32,6 @@ class MGIdleRaidHud extends StatelessWidget {
     this.isAutoBattle = false,
     this.onPause,
     this.onToggleAuto,
-    this.onDailyHub,
   });
 
   @override
@@ -60,13 +58,6 @@ class MGIdleRaidHud extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(width: MGSpacing.sm),
-                if (onDailyHub != null)
-                  MGIconButton(
-                    icon: Icons.calendar_today,
-                    onPressed: onDailyHub!,
-                    buttonSize: MGIconButtonSize.small,
-                  ),
-                const SizedBox(width: MGSpacing.xs),
                 if (onPause != null)
                   MGIconButton(
                     icon: Icons.pause,
