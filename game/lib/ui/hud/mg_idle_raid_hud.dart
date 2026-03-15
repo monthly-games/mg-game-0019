@@ -1,10 +1,5 @@
+import 'package:mg_common_game/mg_common_game.dart';
 import 'package:flutter/material.dart';
-import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
-import 'package:mg_common_game/core/ui/layout/mg_spacing.dart';
-import 'package:mg_common_game/core/ui/typography/mg_text_styles.dart';
-import 'package:mg_common_game/core/ui/widgets/buttons/mg_icon_button.dart';
-import 'package:mg_common_game/core/ui/widgets/progress/mg_linear_progress.dart';
-import 'package:mg_common_game/core/ui/widgets/indicators/mg_resource_bar.dart';
 
 /// MG-0019 Idle Raid Clicker HUD
 /// 방치형 레이드 게임용 HUD - 스테이지, 골드, DPS, 보스 HP 표시
@@ -57,13 +52,9 @@ class MGIdleRaidHud extends StatelessWidget {
                 const Spacer(),
                 // 오른쪽: 자원 & 버튼
                 MGResourceBar(
-                  resources: [
-                    ResourceItem(
-                      icon: Icons.monetization_on,
-                      value: gold,
-                      color: MGColors.resourceGold,
-                    ),
-                  ],
+                  icon: Icons.monetization_on,
+                  value: gold.toString(),
+                  iconColor: MGColors.gold,
                 ),
                 const SizedBox(width: MGSpacing.sm),
                 if (onGuildWar != null)
@@ -98,7 +89,7 @@ class MGIdleRaidHud extends StatelessWidget {
                   MGIconButton(
                     icon: Icons.pause,
                     onPressed: onPause!,
-                    size: MGIconButtonSize.small,
+                    buttonSize: MGIconButtonSize.small,
                   ),
               ],
             ),
@@ -223,7 +214,7 @@ class MGIdleRaidHud extends StatelessWidget {
             value: hpRatio,
             height: 16,
             backgroundColor: MGColors.error.withValues(alpha: 0.2),
-            progressColor: MGColors.error,
+            valueColor: MGColors.error,
           ),
           const SizedBox(height: MGSpacing.xxs),
           Text(

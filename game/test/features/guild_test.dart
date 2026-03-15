@@ -26,7 +26,7 @@ void main() {
     });
 
     test('Create Guild fails without gold', () {
-      playerManager.spendGold(playerManager.gold); // Bankrupt
+      playerManager.trySpendGold(playerManager.gold); // Bankrupt
       expect(guildManager.createGuild('Test Guild'), false);
       expect(guildManager.guild, isNull);
     });

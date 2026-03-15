@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../player/player_manager.dart';
 import '../heroes/hero_manager.dart';
+import '../guild/guild_manager.dart';
+import '../raid/raid_manager.dart';
 
 /// Save/Load game data
 class SaveManager extends ChangeNotifier {

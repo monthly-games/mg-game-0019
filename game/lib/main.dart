@@ -1,17 +1,7 @@
+import 'package:mg_common_game/mg_common_game.dart' hide SaveManager, ShopManager;
 import 'package:flutter/material.dart';
-import 'package:mg_common_game/core/ui/screens/seasonal_event_screen.dart';
-import 'package:mg_common_game/core/ui/screens/tournament_screen.dart';
-import 'package:mg_common_game/core/ui/screens/guild_war_screen.dart';
-import 'package:mg_common_game/systems/events/seasonal_content_manager.dart';
-import 'package:mg_common_game/systems/competitive/tournament_manager.dart';
-import 'package:mg_common_game/systems/social/guild_war_manager.dart';
 import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
-import 'package:mg_common_game/core/ui/screens/daily_hub_screen.dart';
-import 'package:mg_common_game/systems/retention/daily_challenge_manager.dart';
-import 'package:mg_common_game/systems/retention/streak_manager.dart';
-import 'package:mg_common_game/systems/retention/login_rewards_manager.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mg_common_game/systems/systems.dart';
 import 'package:mg_common_game/systems/progression/achievement_manager.dart';
 import 'package:mg_common_game/systems/quests/daily_quest.dart';
 import 'package:flutter/services.dart';
@@ -46,47 +36,46 @@ void main() async {
 }
 
 void _setupDI() {
-  if (!GetIt.I.isRegistered<AudioManager>()) {
-    GetIt.I.registerSingleton<AudioManager>(AudioManager());
-  // DailyQuest 시스템
-  GetIt.I.registerSingleton(DailyQuestManager());
-  // Achievement 시스템
-  GetIt.I.registerSingleton(AchievementManager());
+  final di = GetIt.I;
 
-  // Prestige 시스템 (mg_common_game)
-  if (!GetIt.I.isRegistered<PrestigeManager>()) {
+  if (!di.isRegistered<AudioManager>()) {
+    di.registerSingleton<AudioManager>(AudioManager());
+  }
+  if (!di.isRegistered<DailyQuestManager>()) {
+    di.registerSingleton(DailyQuestManager());
+  }
+  if (!di.isRegistered<AchievementManager>()) {
+    di.registerSingleton(AchievementManager());
+  }
+  if (!di.isRegistered<PrestigeManager>()) {
     final prestigeManager = PrestigeManager();
-    GetIt.I.registerSingleton(prestigeManager);
-  // Collection 시스템
-  if (!GetIt.I.isRegistered<CollectionManager>()) {
-    GetIt.I.registerSingleton(CollectionManager());
-  // ── Retention Systems for DailyHub ────────────────────────
-  if (!GetIt.I.isRegistered<LoginRewardsManager>()) {
-    GetIt.I.registerSingleton(LoginRewardsManager());
-  }
-  if (!GetIt.I.isRegistered<StreakManager>()) {
-    GetIt.I.registerSingleton(StreakManager());
-  }
-  if (!GetIt.I.isRegistered<DailyChallengeManager>()) {
-    GetIt.I.registerSingleton(DailyChallengeManager());
-}
-  // ── P3 Engine Systems ─────────────────────────────────────
-  if (!GetIt.I.isRegistered<GuildWarManager>()) {
-    GetIt.I.registerSingleton(GuildWarManager());
-  }
-  if (!GetIt.I.isRegistered<TournamentManager>()) {
-    GetIt.I.registerSingleton(TournamentManager());
-  }
-  if (!GetIt.I.isRegistered<SeasonalContentManager>()) {
-    GetIt.I.registerSingleton(SeasonalContentManager());
-  }
-    _registerCollections();
-  }
+    di.registerSingleton(prestigeManager);
     _setupPrestige(prestigeManager);
   }
+  if (!di.isRegistered<CollectionManager>()) {
+    di.registerSingleton(CollectionManager());
+  }
+  if (!di.isRegistered<LoginRewardsManager>()) {
+    di.registerSingleton(LoginRewardsManager());
+  }
+  if (!di.isRegistered<StreakManager>()) {
+    di.registerSingleton(StreakManager());
+  }
+  if (!di.isRegistered<DailyChallengeManager>()) {
+    di.registerSingleton(DailyChallengeManager());
+  }
+  if (!di.isRegistered<GuildWarManager>()) {
+    di.registerSingleton(GuildWarManager());
+  }
+  if (!di.isRegistered<TournamentManager>()) {
+    di.registerSingleton(TournamentManager());
+  }
+  if (!di.isRegistered<SeasonalContentManager>()) {
+    di.registerSingleton(SeasonalContentManager());
+  }
+
   _registerAchievements();
   _registerDailyQuests();
-  }
 }
 
 class GuildWanderersApp extends StatefulWidget {
@@ -205,26 +194,20 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
       name: '영웅 컬렉션',
       description: '길드의 모든 영웅을 모아보세요!',
       items: Heroes.all.map((hero) {
-        // HeroRarity maps 1:1 to CollectionRarity
-        String rarity;
-        switch (hero.rarity) {
-          case HeroRarity.common:
-            rarity = mg_systems.CollectionRarity.common;
-          case HeroRarity.rare:
-            rarity = mg_systems.CollectionRarity.rare;
-          case HeroRarity.epic:
-            rarity = mg_systems.CollectionRarity.epic;
-          case HeroRarity.legendary:
-            rarity = mg_systems.CollectionRarity.legendary;
-          case HeroRarity.mythic:
-            rarity = mg_systems.CollectionRarity.mythic;
-        }
+        final rarity = switch (hero.rarity) {
+          HeroRarity.common => mg_systems.CollectionRarity.common,
+          HeroRarity.rare => mg_systems.CollectionRarity.rare,
+          HeroRarity.epic => mg_systems.CollectionRarity.epic,
+          HeroRarity.legendary => mg_systems.CollectionRarity.legendary,
+          HeroRarity.mythic => mg_systems.CollectionRarity.legendary,
+        };
+
         return mg_systems.CollectionItem(
           id: hero.id,
           name: hero.nameKo,
           description: '${hero.classIcon} ${hero.description}',
           rarity: rarity,
-          category: hero.heroClass.name,
+          metadata: {'category': hero.heroClass.name},
         );
       }).toList(),
       completionReward: const mg_systems.CollectionReward(type: RewardType.gold, amount: 50000),
@@ -248,7 +231,7 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return const MaterialApp(
+      return MaterialApp(
         home: Scaffold(
           backgroundColor: AppColors.background,
       endDrawer: Drawer(
@@ -256,7 +239,7 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              const DrawerHeader(
+              DrawerHeader(
                 decoration: BoxDecoration(
                     color: Color(0xFF1A237E)),
                 child: Text('Community',
@@ -264,8 +247,8 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
                         color: Colors.white, fontSize: 24)),
               ),
               ListTile(
-                leading: const Icon(Icons.shield),
-                title: const Text('Guild War'),
+                leading: Icon(Icons.shield),
+                title: Text('Guild War'),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.of(context)
@@ -273,8 +256,8 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.emoji_events),
-                title: const Text('Tournament'),
+                leading: Icon(Icons.emoji_events),
+                title: Text('Tournament'),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.of(context)
@@ -282,8 +265,8 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.celebration),
-                title: const Text('Seasonal Event'),
+                leading: Icon(Icons.celebration),
+                title: Text('Seasonal Event'),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.of(context)
