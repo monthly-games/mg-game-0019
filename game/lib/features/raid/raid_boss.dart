@@ -34,14 +34,15 @@ class RaidBoss {
     String bossName = 'Stage $stage Boss';
     if (stage == 1) {
       bossName = 'Slime King';
-    } else if (stage == 2)
+    } else if (stage == 2) {
       bossName = 'Goblin Warlord';
-    else if (stage == 3)
+    } else if (stage == 3) {
       bossName = 'Giant Golem';
-    else if (stage == 4)
+    } else if (stage == 4) {
       bossName = 'Dark Sorcerer';
-    else if (stage == 5)
+    } else if (stage == 5) {
       bossName = 'Infernal Dragon';
+    }
 
     return RaidBoss(
       id: 'boss_stage_$stage',

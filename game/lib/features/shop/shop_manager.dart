@@ -80,14 +80,15 @@ class ShopManager extends ChangeNotifier {
 
     if (roll < rateMythic) {
       rarity = HeroRarity.mythic;
-    } else if (roll < rateMythic + rateLegendary)
+    } else if (roll < rateMythic + rateLegendary) {
       rarity = HeroRarity.legendary;
-    else if (roll < rateMythic + rateLegendary + rateEpic)
+    } else if (roll < rateMythic + rateLegendary + rateEpic) {
       rarity = HeroRarity.epic;
-    else if (roll < rateMythic + rateLegendary + rateEpic + rateRare)
+    } else if (roll < rateMythic + rateLegendary + rateEpic + rateRare) {
       rarity = HeroRarity.rare;
-    else
+    } else {
       rarity = HeroRarity.common;
+    }
 
     final pool = Heroes.getByRarity(rarity);
     if (pool.isEmpty) return null; // Should not happen if data is complete
