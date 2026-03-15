@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 /// VFX Manager for Guild of Wanderers (MG-0019)
 /// Guild + Cooperative + Idle RPG 게임 전용 이펙트 관리자
-class VfxManager extends Component with HasGameRef {
+class VfxManager extends Component with HasGameReference {
   VfxManager();
   final Random _random = Random();
 
@@ -15,76 +15,76 @@ class VfxManager extends Component with HasGameRef {
     for (int i = 0; i < 3; i++) {
       Future.delayed(Duration(milliseconds: i * 180), () {
         if (!isMounted) return;
-        gameRef.add(_createExplosionEffect(position: position + Vector2((_random.nextDouble() - 0.5) * 80, (_random.nextDouble() - 0.5) * 60), color: i == 1 ? Colors.red : Colors.purple, count: 30, radius: 65));
+        game.add(_createExplosionEffect(position: position + Vector2((_random.nextDouble() - 0.5) * 80, (_random.nextDouble() - 0.5) * 60), color: i == 1 ? Colors.red : Colors.purple, count: 30, radius: 65));
       });
     }
     _triggerScreenShake(intensity: 10, duration: 0.7);
-    gameRef.add(_PhaseText(position: position));
+    game.add(_PhaseText(position: position));
   }
 
   void showDamageNumber(Vector2 position, int damage, {bool isCritical = false, bool isCoopBonus = false}) {
-    gameRef.add(_DamageNumber(position: position, damage: damage, isCritical: isCritical, isCoopBonus: isCoopBonus));
+    game.add(_DamageNumber(position: position, damage: damage, isCritical: isCritical, isCoopBonus: isCoopBonus));
   }
 
   void showCoopCombo(Vector2 position, int comboCount) {
-    gameRef.add(_createExplosionEffect(position: position, color: Colors.cyan, count: 25 + comboCount * 3, radius: 55 + comboCount * 5.0));
-    gameRef.add(_createSparkleEffect(position: position, color: Colors.white, count: 15));
-    gameRef.add(_ComboText(position: position, combo: comboCount));
+    game.add(_createExplosionEffect(position: position, color: Colors.cyan, count: 25 + comboCount * 3, radius: 55 + comboCount * 5.0));
+    game.add(_createSparkleEffect(position: position, color: Colors.white, count: 15));
+    game.add(_ComboText(position: position, combo: comboCount));
   }
 
   void showSkillActivation(Vector2 position, Color skillColor) {
-    gameRef.add(_createConvergeEffect(position: position, color: skillColor));
-    gameRef.add(_createGroundCircle(position: position, color: skillColor));
+    game.add(_createConvergeEffect(position: position, color: skillColor));
+    game.add(_createGroundCircle(position: position, color: skillColor));
   }
 
   // Guild Effects
   void showGuildRankUp(Vector2 position) {
-    gameRef.add(_createExplosionEffect(position: position, color: Colors.amber, count: 45, radius: 85));
+    game.add(_createExplosionEffect(position: position, color: Colors.amber, count: 45, radius: 85));
     for (int i = 0; i < 6; i++) {
       Future.delayed(Duration(milliseconds: i * 100), () {
         if (!isMounted) return;
-        gameRef.add(_createSparkleEffect(position: position + Vector2((_random.nextDouble() - 0.5) * 100, (_random.nextDouble() - 0.5) * 70), color: Colors.yellow, count: 10));
+        game.add(_createSparkleEffect(position: position + Vector2((_random.nextDouble() - 0.5) * 100, (_random.nextDouble() - 0.5) * 70), color: Colors.yellow, count: 10));
       });
     }
-    gameRef.add(_GuildRankText(position: position));
+    game.add(_GuildRankText(position: position));
     _triggerScreenShake(intensity: 5, duration: 0.4);
   }
 
   void showMemberContribution(Vector2 position, int contribution) {
-    gameRef.add(_createRisingEffect(position: position, color: Colors.lightBlue, count: 10, speed: 60));
+    game.add(_createRisingEffect(position: position, color: Colors.lightBlue, count: 10, speed: 60));
     showNumberPopup(position, '+$contribution', color: Colors.cyan);
   }
 
   void showGuildSkillActivation(Vector2 position, Color skillColor) {
-    gameRef.add(_createExplosionEffect(position: position, color: skillColor, count: 35, radius: 75));
-    gameRef.add(_createSparkleEffect(position: position, color: Colors.white, count: 20));
-    gameRef.add(_GuildSkillText(position: position));
+    game.add(_createExplosionEffect(position: position, color: skillColor, count: 35, radius: 75));
+    game.add(_createSparkleEffect(position: position, color: Colors.white, count: 20));
+    game.add(_GuildSkillText(position: position));
   }
 
   // Progression Effects
   void showExpGain(Vector2 position, int amount) {
-    gameRef.add(_createRisingEffect(position: position, color: Colors.lightBlue, count: 8, speed: 50));
+    game.add(_createRisingEffect(position: position, color: Colors.lightBlue, count: 8, speed: 50));
     showNumberPopup(position, '+$amount EXP', color: Colors.lightBlue);
   }
 
   void showLevelUp(Vector2 position) {
-    gameRef.add(_createExplosionEffect(position: position, color: Colors.amber, count: 40, radius: 70));
-    gameRef.add(_createSparkleEffect(position: position, color: Colors.yellow, count: 18));
-    gameRef.add(_LevelUpText(position: position));
+    game.add(_createExplosionEffect(position: position, color: Colors.amber, count: 40, radius: 70));
+    game.add(_createSparkleEffect(position: position, color: Colors.yellow, count: 18));
+    game.add(_LevelUpText(position: position));
   }
 
   void showGoldGain(Vector2 position, int amount) {
-    gameRef.add(_createCoinEffect(position: position, count: (amount / 30).clamp(5, 15).toInt()));
+    game.add(_createCoinEffect(position: position, count: (amount / 30).clamp(5, 15).toInt()));
     showNumberPopup(position, '+$amount G', color: Colors.amber);
   }
 
   void showNumberPopup(Vector2 position, String text, {Color color = Colors.white}) {
-    gameRef.add(_NumberPopup(position: position, text: text, color: color));
+    game.add(_NumberPopup(position: position, text: text, color: color));
   }
 
   void _triggerScreenShake({double intensity = 5, double duration = 0.3}) {
-    if (gameRef.camera.viewfinder.children.isNotEmpty) {
-      gameRef.camera.viewfinder.add(MoveByEffect(Vector2(intensity, 0), EffectController(duration: duration / 10, repeatCount: (duration * 10).toInt(), alternate: true)));
+    if (game.camera.viewfinder.children.isNotEmpty) {
+      game.camera.viewfinder.add(MoveByEffect(Vector2(intensity, 0), EffectController(duration: duration / 10, repeatCount: (duration * 10).toInt(), alternate: true)));
     }
   }
 
@@ -113,7 +113,11 @@ class VfxManager extends Component with HasGameRef {
       final angle = _random.nextDouble() * 2 * pi; final speed = 50 + _random.nextDouble() * 45;
       return AcceleratedParticle(position: position.clone(), speed: Vector2(cos(angle), sin(angle)) * speed, acceleration: Vector2(0, 45), child: ComputedParticle(renderer: (canvas, particle) {
         final opacity = (1.0 - particle.progress).clamp(0.0, 1.0); final size = 3 * (1.0 - particle.progress * 0.5);
-        final path = Path(); for (int j = 0; j < 4; j++) { final a = (j * pi / 2); if (j == 0) path.moveTo(cos(a) * size, sin(a) * size); else path.lineTo(cos(a) * size, sin(a) * size); } path.close();
+        final path = Path(); for (int j = 0; j < 4; j++) { final a = (j * pi / 2); if (j == 0) {
+          path.moveTo(cos(a) * size, sin(a) * size);
+        } else {
+          path.lineTo(cos(a) * size, sin(a) * size);
+        } } path.close();
         canvas.drawPath(path, Paint()..color = color.withValues(alpha: opacity));
       }));
     }));

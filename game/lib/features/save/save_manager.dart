@@ -99,12 +99,12 @@ class SaveManager extends ChangeNotifier {
 
       // Restore guild data
       if (saveData.containsKey('guild') && _guildManager != null) {
-        _guildManager!.loadFromSave(saveData['guild'] as Map<String, dynamic>);
+        _guildManager.loadFromSave(saveData['guild'] as Map<String, dynamic>);
       }
 
       // Restore raid data
       if (saveData.containsKey('raid') && _raidManager != null) {
-        _raidManager!.loadFromSave(saveData['raid'] as Map<String, dynamic>);
+        _raidManager.loadFromSave(saveData['raid'] as Map<String, dynamic>);
       }
 
       debugPrint('Game loaded successfully');

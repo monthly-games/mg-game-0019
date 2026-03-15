@@ -14,7 +14,7 @@ const kWandererKnightMeta = SpineAssetMeta(
   atlasPath:
       'assets/spine/characters/wanderer_knight/wanderer_knight.atlas',
   skeletonPath:
-      'assets/spine/characters/wanderer_knight/wanderer_knight.skel',
+      'assets/spine/characters/wanderer_knight/wanderer_knight.json',
   animations: ['idle', 'walk', 'attack', 'hit'],
   defaultAnimation: 'idle',
   defaultMix: 0.2,
@@ -28,7 +28,7 @@ const kWandererMageMeta = SpineAssetMeta(
   atlasPath:
       'assets/spine/characters/wanderer_mage/wanderer_mage.atlas',
   skeletonPath:
-      'assets/spine/characters/wanderer_mage/wanderer_mage.skel',
+      'assets/spine/characters/wanderer_mage/wanderer_mage.json',
   animations: ['idle', 'walk', 'attack', 'hit'],
   defaultAnimation: 'idle',
   defaultMix: 0.2,
@@ -42,7 +42,7 @@ const kWandererScoutMeta = SpineAssetMeta(
   atlasPath:
       'assets/spine/characters/wanderer_scout/wanderer_scout.atlas',
   skeletonPath:
-      'assets/spine/characters/wanderer_scout/wanderer_scout.skel',
+      'assets/spine/characters/wanderer_scout/wanderer_scout.json',
   animations: ['idle', 'walk', 'attack', 'hit'],
   defaultAnimation: 'idle',
   defaultMix: 0.2,
