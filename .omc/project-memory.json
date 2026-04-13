@@ -1,0 +1,140 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1775970825980,
+  "projectRoot": "D:\\mg-games\\repos\\mg-game-0019",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "assets",
+      "docs",
+      "lib"
+    ],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "analytics": {
+      "path": "analytics",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1775970825933,
+      "keyFiles": []
+    },
+    "assets": {
+      "path": "assets",
+      "purpose": "Static assets",
+      "fileCount": 0,
+      "lastAccessed": 1775970825934,
+      "keyFiles": []
+    },
+    "backend": {
+      "path": "backend",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1775970825934,
+      "keyFiles": []
+    },
+    "config": {
+      "path": "config",
+      "purpose": "Configuration files",
+      "fileCount": 1,
+      "lastAccessed": 1775970825934,
+      "keyFiles": [
+        "game_manifest.json"
+      ]
+    },
+    "docs": {
+      "path": "docs",
+      "purpose": "Documentation",
+      "fileCount": 6,
+      "lastAccessed": 1775970825951,
+      "keyFiles": [
+        "bm_design.md",
+        "development_progress.md",
+        "fun_design.md",
+        "monetization_design.md",
+        "ops_design.md"
+      ]
+    },
+    "game": {
+      "path": "game",
+      "purpose": null,
+      "fileCount": 12,
+      "lastAccessed": 1775970825951,
+      "keyFiles": [
+        "analysis_options.yaml",
+        "build.log",
+        "build_output.txt",
+        "game.iml",
+        "lib_backup_20260305_151738.tar.gz"
+      ]
+    },
+    "lib": {
+      "path": "lib",
+      "purpose": "Library code",
+      "fileCount": 0,
+      "lastAccessed": 1775970825951,
+      "keyFiles": []
+    },
+    "libs": {
+      "path": "libs",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1775970825952,
+      "keyFiles": []
+    },
+    "marketing": {
+      "path": "marketing",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1775970825961,
+      "keyFiles": []
+    },
+    "game\\assets": {
+      "path": "game\\assets",
+      "purpose": "Static assets",
+      "fileCount": 1,
+      "lastAccessed": 1775970825962,
+      "keyFiles": []
+    },
+    "game\\build": {
+      "path": "game\\build",
+      "purpose": "Build output",
+      "fileCount": 0,
+      "lastAccessed": 1775970825962,
+      "keyFiles": []
+    },
+    "lib\\config": {
+      "path": "lib\\config",
+      "purpose": "Configuration files",
+      "fileCount": 2,
+      "lastAccessed": 1775970825963,
+      "keyFiles": [
+        "missions_config.dart",
+        "season2_config.dart"
+      ]
+    }
+  },
+  "hotPaths": [],
+  "userDirectives": []
+}
