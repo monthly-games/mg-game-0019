@@ -53,30 +53,30 @@ class RaiderGachaAdapter extends ChangeNotifier {
   List<GachaItem> _generateItems() {
     return [
       // UR (0.6%)
-      const GachaItem(id: 'ur_idleraid_001', nameKr: '전설의 Raider', rarity: GachaRarity.ultraRare),
-      const GachaItem(id: 'ur_idleraid_002', nameKr: '신화의 Raider', rarity: GachaRarity.ultraRare),
+      GachaItem(id: 'ur_idleraid_001', nameKr: '전설의 Raider', rarity: GachaRarity.ultraRare),
+      GachaItem(id: 'ur_idleraid_002', nameKr: '신화의 Raider', rarity: GachaRarity.ultraRare),
       // SSR (2.4%)
-      const GachaItem(id: 'ssr_idleraid_001', nameKr: '영웅의 Raider', rarity: GachaRarity.superRare),
-      const GachaItem(id: 'ssr_idleraid_002', nameKr: '고대의 Raider', rarity: GachaRarity.superRare),
-      const GachaItem(id: 'ssr_idleraid_003', nameKr: '황금의 Raider', rarity: GachaRarity.superRare),
+      GachaItem(id: 'ssr_idleraid_001', nameKr: '영웅의 Raider', rarity: GachaRarity.superRare),
+      GachaItem(id: 'ssr_idleraid_002', nameKr: '고대의 Raider', rarity: GachaRarity.superRare),
+      GachaItem(id: 'ssr_idleraid_003', nameKr: '황금의 Raider', rarity: GachaRarity.superRare),
       // SR (12%)
-      const GachaItem(id: 'sr_idleraid_001', nameKr: '희귀한 Raider A', rarity: GachaRarity.superRare),
-      const GachaItem(id: 'sr_idleraid_002', nameKr: '희귀한 Raider B', rarity: GachaRarity.superRare),
-      const GachaItem(id: 'sr_idleraid_003', nameKr: '희귀한 Raider C', rarity: GachaRarity.superRare),
-      const GachaItem(id: 'sr_idleraid_004', nameKr: '희귀한 Raider D', rarity: GachaRarity.superRare),
+      GachaItem(id: 'sr_idleraid_001', nameKr: '희귀한 Raider A', rarity: GachaRarity.superRare),
+      GachaItem(id: 'sr_idleraid_002', nameKr: '희귀한 Raider B', rarity: GachaRarity.superRare),
+      GachaItem(id: 'sr_idleraid_003', nameKr: '희귀한 Raider C', rarity: GachaRarity.superRare),
+      GachaItem(id: 'sr_idleraid_004', nameKr: '희귀한 Raider D', rarity: GachaRarity.superRare),
       // R (35%)
-      const GachaItem(id: 'r_idleraid_001', nameKr: '우수한 Raider A', rarity: GachaRarity.rare),
-      const GachaItem(id: 'r_idleraid_002', nameKr: '우수한 Raider B', rarity: GachaRarity.rare),
-      const GachaItem(id: 'r_idleraid_003', nameKr: '우수한 Raider C', rarity: GachaRarity.rare),
-      const GachaItem(id: 'r_idleraid_004', nameKr: '우수한 Raider D', rarity: GachaRarity.rare),
-      const GachaItem(id: 'r_idleraid_005', nameKr: '우수한 Raider E', rarity: GachaRarity.rare),
+      GachaItem(id: 'r_idleraid_001', nameKr: '우수한 Raider A', rarity: GachaRarity.rare),
+      GachaItem(id: 'r_idleraid_002', nameKr: '우수한 Raider B', rarity: GachaRarity.rare),
+      GachaItem(id: 'r_idleraid_003', nameKr: '우수한 Raider C', rarity: GachaRarity.rare),
+      GachaItem(id: 'r_idleraid_004', nameKr: '우수한 Raider D', rarity: GachaRarity.rare),
+      GachaItem(id: 'r_idleraid_005', nameKr: '우수한 Raider E', rarity: GachaRarity.rare),
       // N (50%)
-      const GachaItem(id: 'n_idleraid_001', nameKr: '일반 Raider A', rarity: GachaRarity.normal),
-      const GachaItem(id: 'n_idleraid_002', nameKr: '일반 Raider B', rarity: GachaRarity.normal),
-      const GachaItem(id: 'n_idleraid_003', nameKr: '일반 Raider C', rarity: GachaRarity.normal),
-      const GachaItem(id: 'n_idleraid_004', nameKr: '일반 Raider D', rarity: GachaRarity.normal),
-      const GachaItem(id: 'n_idleraid_005', nameKr: '일반 Raider E', rarity: GachaRarity.normal),
-      const GachaItem(id: 'n_idleraid_006', nameKr: '일반 Raider F', rarity: GachaRarity.normal),
+      GachaItem(id: 'n_idleraid_001', nameKr: '일반 Raider A', rarity: GachaRarity.normal),
+      GachaItem(id: 'n_idleraid_002', nameKr: '일반 Raider B', rarity: GachaRarity.normal),
+      GachaItem(id: 'n_idleraid_003', nameKr: '일반 Raider C', rarity: GachaRarity.normal),
+      GachaItem(id: 'n_idleraid_004', nameKr: '일반 Raider D', rarity: GachaRarity.normal),
+      GachaItem(id: 'n_idleraid_005', nameKr: '일반 Raider E', rarity: GachaRarity.normal),
+      GachaItem(id: 'n_idleraid_006', nameKr: '일반 Raider F', rarity: GachaRarity.normal),
     ];
   }
 

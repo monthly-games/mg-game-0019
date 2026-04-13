@@ -1,7 +1,10 @@
+import 'package:mg_common_game/core/ui/layout/mg_spacing.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:flutter/material.dart' hide Hero;
 import 'package:provider/provider.dart';
 import 'package:mg_common_game/core/ui/theme/app_colors.dart';
-import 'package:mg_common_game/core/ui/theme/app_text_styles.dart';
+import 'package:mg_common_game/core/ui/theme/app_text_styles.dart';import 'package:mg_common_game/l10n/localization.dart';
+
 
 import '../features/player/player_manager.dart';
 import '../features/heroes/hero_manager.dart';
@@ -15,7 +18,7 @@ class HeroesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('영웅'),
+        title: Text('ui_general_영웅_레벨업'.tr),
         backgroundColor: AppColors.primary,
       ),
       body: Consumer2<PlayerManager, HeroManager>(
@@ -23,7 +26,7 @@ class HeroesScreen extends StatelessWidget {
           final ownedHeroes = heroes.ownedHeroes;
 
           return ListView.builder(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(MGSpacing.md),
             itemCount: ownedHeroes.length,
             itemBuilder: (context, index) {
               final instance = ownedHeroes[index];
@@ -52,7 +55,7 @@ class HeroesScreen extends StatelessWidget {
       color: AppColors.panel,
       margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(MGSpacing.md),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -61,7 +64,7 @@ class HeroesScreen extends StatelessWidget {
               children: [
                 // Icon
                 Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(MGSpacing.sm),
                   decoration: BoxDecoration(
                     color: hero.rarityColor.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(8),
@@ -69,7 +72,7 @@ class HeroesScreen extends StatelessWidget {
                   ),
                   child: Text(hero.classIcon, style: const TextStyle(fontSize: 40)),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: MGSpacing.md),
 
                 // Info
                 Expanded(
@@ -79,7 +82,7 @@ class HeroesScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(hero.nameKo, style: AppTextStyles.header2),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: MGSpacing.xs),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                             decoration: BoxDecoration(
@@ -97,16 +100,16 @@ class HeroesScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: MGSpacing.xxs),
                       Text(
                         hero.description,
                         style: AppTextStyles.caption.copyWith(color: MGColors.common),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: MGSpacing.xs),
                       Row(
                         children: [
                           Text('레벨: ${instance.level}', style: AppTextStyles.body),
-                          const SizedBox(width: 16),
+                          const SizedBox(width: MGSpacing.md),
                           Text(
                             '전투력: ${stats.power.round()}',
                             style: AppTextStyles.body.copyWith(
@@ -122,30 +125,30 @@ class HeroesScreen extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: MGSpacing.md),
 
             // Stats
             Row(
               children: [
                 Expanded(child: _buildStatItem('HP', stats.hp, Icons.favorite, MGColors.error)),
-                const SizedBox(width: 8),
+                const SizedBox(width: MGSpacing.xs),
                 Expanded(child: _buildStatItem('공격', stats.attack, Icons.flash_on, MGColors.warning)),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: MGSpacing.xs),
             Row(
               children: [
                 Expanded(child: _buildStatItem('방어', stats.defense, Icons.shield, MGColors.info)),
-                const SizedBox(width: 8),
+                const SizedBox(width: MGSpacing.xs),
                 Expanded(child: _buildStatItem('속도', stats.speed, Icons.speed, MGColors.success)),
               ],
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: MGSpacing.md),
 
             // Skill
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(MGSpacing.sm),
               decoration: BoxDecoration(
                 color: Colors.purple.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(8),
@@ -157,7 +160,7 @@ class HeroesScreen extends StatelessWidget {
                   Row(
                     children: [
                       const Icon(Icons.auto_awesome, color: Colors.purple, size: 16),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: MGSpacing.xs),
                       Text(
                         hero.skillName,
                         style: AppTextStyles.body.copyWith(
@@ -167,7 +170,7 @@ class HeroesScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: MGSpacing.xxs),
                   Text(
                     hero.skillDescription,
                     style: AppTextStyles.caption.copyWith(fontSize: 12),
@@ -176,7 +179,7 @@ class HeroesScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: MGSpacing.md),
 
             // Level progress
             Column(
@@ -192,7 +195,7 @@ class HeroesScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: MGSpacing.xxs),
                 LinearProgressIndicator(
                   value: instance.expProgress,
                   backgroundColor: Colors.grey[800],
@@ -201,7 +204,7 @@ class HeroesScreen extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: MGSpacing.md),
 
             // Actions
             Row(
@@ -213,16 +216,16 @@ class HeroesScreen extends StatelessWidget {
                       if (instance.isInTeam) {
                         heroes.removeFromTeam(hero.id);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('${hero.nameKo}을(를) 팀에서 제외했습니다')),
+                          SnackBar(content: Text('ui_general_heronameko을를_팀에서_제외했습니다'.tr)),
                         );
                       } else {
                         if (heroes.addToTeam(hero.id)) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('${hero.nameKo}을(를) 팀에 추가했습니다')),
+                            SnackBar(content: Text('ui_general_heronameko을를_팀에_추가했습니다'.tr)),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('팀이 가득 찼습니다 (최대 5명)')),
+                            const SnackBar(content: Text('ui_general_팀이_가득_찼습니다_최대_5명'.tr)),
                           );
                         }
                       }
@@ -234,7 +237,7 @@ class HeroesScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: MGSpacing.xs),
 
                 // Level up
                 Expanded(
@@ -246,7 +249,7 @@ class HeroesScreen extends StatelessWidget {
                     label: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text('레벨업'),
+                        Text('ui_general_영웅_레벨업'.tr),
                         Text(
                           '${instance.getLevelUpCost()} 골드',
                           style: const TextStyle(fontSize: 10),
@@ -268,7 +271,7 @@ class HeroesScreen extends StatelessWidget {
 
   Widget _buildStatItem(String label, int value, IconData icon, Color color) {
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(MGSpacing.xs),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(4),
@@ -277,7 +280,7 @@ class HeroesScreen extends StatelessWidget {
       child: Row(
         children: [
           Icon(icon, color: color, size: 16),
-          const SizedBox(width: 4),
+          const SizedBox(width: MGSpacing.xxs),
           Text('$label:', style: AppTextStyles.caption.copyWith(fontSize: 11)),
           const Spacer(),
           Text(
@@ -320,21 +323,21 @@ class HeroesScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('영웅 레벨업'),
+        title: Text('ui_general_영웅_레벨업'.tr),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(hero.nameKo, style: AppTextStyles.header2),
-            const SizedBox(height: 16),
-            Text('레벨: ${instance.level} → ${instance.level + 1}'),
-            const SizedBox(height: 8),
-            const Text('모든 스탯 +10%'),
-            const SizedBox(height: 16),
+            const SizedBox(height: MGSpacing.md),
+            Text('progress_레벨_instancelevel_instancelevel_1'.tr),
+            const SizedBox(height: MGSpacing.xs),
+            Text('ui_general_모든_스탯_10'.tr),
+            const SizedBox(height: MGSpacing.md),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(Icons.monetization_on, color: Colors.yellow),
-                const SizedBox(width: 4),
+                const SizedBox(width: MGSpacing.xxs),
                 Text(
                   '$cost 골드',
                   style: const TextStyle(
@@ -345,7 +348,7 @@ class HeroesScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: MGSpacing.xs),
             if (player.gold < cost)
               const Text(
                 '골드가 부족합니다!',
@@ -365,7 +368,7 @@ class HeroesScreen extends StatelessWidget {
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('${hero.nameKo} 레벨업 완료! (Lv.${instance.level})'),
+                          content: Text('progress_heronameko_레벨업_완료_lvinstancelevel'.tr),
                         ),
                       );
                     }
@@ -374,7 +377,7 @@ class HeroesScreen extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.purple,
             ),
-            child: const Text('레벨업'),
+            child: Text('ui_general_영웅_레벨업'.tr),
           ),
         ],
       ),

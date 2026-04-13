@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
 import '../player/player_manager.dart';
 
 class Guild {

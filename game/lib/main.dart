@@ -1,9 +1,17 @@
+import 'package:mg_common_game/systems/progression/achievement_manager.dart';
+
 import 'package:mg_common_game/mg_common_game.dart' hide SaveManager, ShopManager;
+import 'package:mg_common_game/core/localization/localization.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mg_common_game/systems/systems.dart' as mg_systems;
+import 'package:mg_common_game/core/ui/accessibility/accessibility_settings.dart';
+// import 'package:mg_common_game/l10n/localization.dart'; // Temporarily disabled - file doesn't exist
+import 'package:mg_common_game/systems/tutorial/tutorial_manager.dart';
+
 
 import 'features/player/player_manager.dart';
 import 'features/heroes/hero_manager.dart';
@@ -19,236 +27,242 @@ import 'game/ui/offline_reward_dialog.dart'; // Import
 import 'screens/battlepass_screen.dart';
 import 'screens/gacha_screen.dart';
 import 'screens/collection_screen.dart';
-import 'game/tutorial_config.dart';
-import 'game/balancing_config.dart';
-
+// // import 'game/tutorial_config.dart'; // TutorialManager not available
+// import 'game/balancing_config.dart'; // BalancingManager not available
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:mg_common_game/systems/quests/daily_quest_v2.dart'; // Temporarily disabled
+// import 'package:mg_common_game/core/ui/screens/daily_quest_screen_v2.dart'; // Temporarily disabled
+import 'package:mg_common_game/l10n/extensions.dart';
+// import 'firebase_options.dart';
+// 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  _setupDI();
-  await GetIt.I<AudioManager>().initialize();
-
-  // ── Tutorial & Balancing ──────────────────────────────────
-  if (!GetIt.I.isRegistered<TutorialManager>()) {
-    final tutorialManager = TutorialManager();
-    await tutorialManager.initialize();
-    tutorialManager.registerTutorial(
-      kOnboardingTutorial.id,
-      kOnboardingTutorial.steps,
-    );
-    GetIt.I.registerSingleton<TutorialManager>(tutorialManager);
-  }
-  if (!GetIt.I.isRegistered<BalancingManager>()) {
-    GetIt.I.registerSingleton<BalancingManager>(
-      BalancingManager(defaultConfig: kDefaultBalancingConfig),
-    );
-  }
-  // ── Q7 DI Fix: Missing Systems ──────────────────────────
-  if (!GetIt.I.isRegistered<BattlePassManager>()) {
-    GetIt.I.registerSingleton<BattlePassManager>(BattlePassManager());
-  }
-  if (!GetIt.I.isRegistered<GachaManager>()) {
-    GetIt.I.registerSingleton<GachaManager>(GachaManager());
-  }
-  if (!GetIt.I.isRegistered<CollectionManager>()) {
-    GetIt.I.registerSingleton<CollectionManager>(CollectionManager());
-  }
-  if (!GetIt.I.isRegistered<GuildWarManager>()) {
-    GetIt.I.registerSingleton<GuildWarManager>(GuildWarManager());
-  }
-  if (!GetIt.I.isRegistered<TournamentManager>()) {
-    GetIt.I.registerSingleton<TournamentManager>(TournamentManager());
-  }
-  if (!GetIt.I.isRegistered<SeasonalContentManager>()) {
-    GetIt.I.registerSingleton<SeasonalContentManager>(SeasonalContentManager());
-  }
-
-  runApp(const GuildWanderersApp());
+WidgetsFlutterBinding.ensureInitialized();
+// Initialize Firebase Remote Config
+// Initialize Firebase Core
+try {
+// await // // Firebase.initializeApp(
+options: // DefaultFirebaseOptions.currentPlatform,
+);
+print('Firebase Core initialized successfully');
+} catch (e) {
+print('Failed to initialize Firebase Core: $e');
 }
+try {
+final remoteConfig = FirebaseRemoteConfig.instance;
+await remoteConfig.setDefaults({
+'feature_iap_enabled': true,
+'feature_new_ui_enabled': false,
+'feature_daily_rewards_enabled': true,
+'feature_tutorial_enabled': true,
+'min_app_version': '1.0.0',
 
+      'feature_battlepass': true,
+      'feature_gacha': true,});
+await remoteConfig.fetchAndActivate();
+print('Remote Config initialized successfully');
+} catch (e) {
+print('Failed to initialize Remote Config: $e');
+}
+_setupDI();
+await GetIt.I<AudioManager>().initialize();
+// ── Tutorial & Balancing ──────────────────────────────────
+if (!GetIt.I.isRegistered<TutorialManager>()) {
+final tutorialManager = TutorialManager();
+await tutorialManager.initialize();
+// Tutorial is started via startTutorial() method when needed
+GetIt.I.registerSingleton<TutorialManager>(tutorialManager);
+}
+// if (!GetIt.I.isRegistered<BalancingManager>()) { // Temporarily disabled - manager doesn't exist yet
+//   GetIt.I.registerSingleton<BalancingManager>(
+//     BalancingManager(defaultConfig: kDefaultBalancingConfig),
+//   );
+// }
+// ── Q7 DI Fix: Missing Systems ──────────────────────────
+if (!GetIt.I.isRegistered<BattlePassManager>()) {
+GetIt.I.registerSingleton<BattlePassManager>(BattlePassManager());
+}
+if (!GetIt.I.isRegistered<GachaManager>()) {
+GetIt.I.registerSingleton<GachaManager>(GachaManager());
+}
+if (!GetIt.I.isRegistered<CollectionManager>()) {
+GetIt.I.registerSingleton<CollectionManager>(CollectionManager());
+}
+// if (!GetIt.I.isRegistered<GuildWarManager>()) { // Temporarily disabled - manager doesn't exist yet
+//   GetIt.I.registerSingleton<GuildWarManager>(GuildWarManager());
+// }
+// if (!GetIt.I.isRegistered<TournamentManager>()) { // Temporarily disabled - manager doesn't exist yet
+//   GetIt.I.registerSingleton<TournamentManager>(TournamentManager());
+// }
+// if (!GetIt.I.isRegistered<SeasonalContentManager>()) { // Temporarily disabled - manager doesn't exist yet
+//   GetIt.I.registerSingleton<SeasonalContentManager>(SeasonalContentManager());
+// }
+runApp(const GuildWanderersApp());
+}
 void _setupDI() {
-  final di = GetIt.I;
-
-  if (!di.isRegistered<AudioManager>()) {
-    di.registerSingleton<AudioManager>(AudioManager());
-  }
-  if (!di.isRegistered<DailyQuestManager>()) {
-    di.registerSingleton(DailyQuestManager());
-  }
-  if (!di.isRegistered<AchievementManager>()) {
-    di.registerSingleton(AchievementManager());
-  }
-  if (!di.isRegistered<PrestigeManager>()) {
-    final prestigeManager = PrestigeManager();
-    di.registerSingleton(prestigeManager);
-    _setupPrestige(prestigeManager);
-  }
-  if (!di.isRegistered<CollectionManager>()) {
-    di.registerSingleton(CollectionManager());
-  }
-  if (!di.isRegistered<LoginRewardsManager>()) {
-    di.registerSingleton(LoginRewardsManager());
-  }
-  if (!di.isRegistered<StreakManager>()) {
-    di.registerSingleton(StreakManager());
-  }
-  if (!di.isRegistered<DailyChallengeManager>()) {
-    di.registerSingleton(DailyChallengeManager());
-  }
-  if (!di.isRegistered<GuildWarManager>()) {
-    di.registerSingleton(GuildWarManager());
-  }
-  if (!di.isRegistered<TournamentManager>()) {
-    di.registerSingleton(TournamentManager());
-  }
-  if (!di.isRegistered<SeasonalContentManager>()) {
-    di.registerSingleton(SeasonalContentManager());
-  }
-
-  _registerAchievements();
-  _registerDailyQuests();
+final di = GetIt.I;
+if (!di.isRegistered<AudioManager>()) {
+di.registerSingleton<AudioManager>(AudioManager());
 }
-
+if (!di.isRegistered<DailyQuestManager>()) {
+di.registerSingleton(DailyQuestManager());
+}
+if (!di.isRegistered<AchievementManager>()) {
+di.registerSingleton(AchievementManager());
+}
+if (!di.isRegistered<PrestigeManager>()) {
+final prestigeManager = PrestigeManager();
+di.registerSingleton(prestigeManager);
+_setupPrestige(prestigeManager);
+}
+if (!di.isRegistered<CollectionManager>()) {
+di.registerSingleton(CollectionManager());
+}
+// if (!di.isRegistered<LoginRewardsManager>()) { // Temporarily disabled - manager doesn't exist yet
+//   di.registerSingleton(LoginRewardsManager());
+// }
+// if (!di.isRegistered<StreakManager>()) { // Temporarily disabled - manager doesn't exist yet
+//   di.registerSingleton(StreakManager());
+// }
+// if (!di.isRegistered<DailyChallengeManager>()) { // Temporarily disabled - manager doesn't exist yet
+//   di.registerSingleton(DailyChallengeManager());
+// }
+// if (!di.isRegistered<GuildWarManager>()) { // Temporarily disabled - manager doesn't exist yet
+//   di.registerSingleton(GuildWarManager());
+// }
+// if (!di.isRegistered<TournamentManager>()) { // Temporarily disabled - manager doesn't exist yet
+//   di.registerSingleton(TournamentManager());
+// }
+// if (!di.isRegistered<SeasonalContentManager>()) { // Temporarily disabled - manager doesn't exist yet
+//   di.registerSingleton(SeasonalContentManager());
+// }
+_registerAchievements();
+_registerDailyQuests();
+}
 class GuildWanderersApp extends StatefulWidget {
-  const GuildWanderersApp({super.key});
-
-  @override
-  State<GuildWanderersApp> createState() => _GuildWanderersAppState();
+const GuildWanderersApp({super.key});
+@override
+State<GuildWanderersApp> createState() => _GuildWanderersAppState();
 }
-
 class _GuildWanderersAppState extends State<GuildWanderersApp>
-    with WidgetsBindingObserver {
-  late PlayerManager _playerManager;
-  late GuildManager _guildManager;
-  late HeroManager _heroManager;
-  late RaidManager _raidManager;
-  late ShopManager _shopManager;
-  late SaveManager _saveManager;
-  late mg_systems.CollectionManager _collectionManager;
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    _initializeApp();
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    // Auto-save when app goes to background
-    if (state == AppLifecycleState.paused) {
-      _saveManager.saveGame();
-    }
-  }
-
-  Future<void> _initializeApp() async {
-    _playerManager = PlayerManager();
-    _guildManager = GuildManager(playerManager: _playerManager);
-
-    _heroManager = HeroManager(
-      playerManager: _playerManager,
-      guildManager: _guildManager,
-    );
-
-    _raidManager = RaidManager(
-      playerManager: _playerManager,
-      heroManager: _heroManager,
-    );
-
-    _shopManager = ShopManager(
-      playerManager: _playerManager,
-      heroManager: _heroManager,
-    );
-
-    _saveManager = SaveManager(
-      playerManager: _playerManager,
-      heroManager: _heroManager,
-      guildManager: _guildManager,
-      raidManager: _raidManager,
-    );
-
-    // Collection Manager
-    _collectionManager = mg_systems.CollectionManager();
-    if (!GetIt.I.isRegistered<mg_systems.CollectionManager>()) {
-      GetIt.I.registerSingleton<mg_systems.CollectionManager>(_collectionManager);
-    }
-    _registerCollections();
-
-    // Try to load save data
-    final loaded = await _saveManager.loadGame();
-    if (loaded) {
-      debugPrint('Save data loaded successfully');
-    } else {
-      debugPrint('Starting new game');
-    }
-
-    setState(() {
-      _isLoading = false;
-    });
-
-    // Check offline progress
-    final offlineDuration = _saveManager.offlineDuration;
-    if (offlineDuration != null && mounted) {
-      final gold = _raidManager.calculateOfflineGold(offlineDuration);
-      if (gold > 0) {
-        // We need context to show dialog. But we are in _initializeApp called from initState.
-        // We can't show dialog yet.
-        // Wait for first frame
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          showDialog(
-            context: context,
-            builder: (_) => OfflineRewardDialog(
-              duration: offlineDuration,
-              goldReward: gold,
-              onClaim: () {
-                _playerManager.addGold(gold);
-                _saveManager.clearOfflineDuration();
-              },
-            ),
-          );
-        });
-      }
-    }
-  }
-
-  void _registerCollections() {
-    // Hero Collection — 10 heroes mapped from Heroes.all
-    _collectionManager.registerCollection(mg_systems.Collection(
-      id: 'hero_collection',
-      name: '영웅 컬렉션',
-      description: '길드의 모든 영웅을 모아보세요!',
-      items: Heroes.all.map((hero) {
-        final rarity = switch (hero.rarity) {
-          HeroRarity.common => mg_systems.CollectionRarity.common,
-          HeroRarity.rare => mg_systems.CollectionRarity.rare,
-          HeroRarity.epic => mg_systems.CollectionRarity.epic,
-          HeroRarity.legendary => mg_systems.CollectionRarity.legendary,
-          HeroRarity.mythic => mg_systems.CollectionRarity.legendary,
-        };
-
-        return mg_systems.CollectionItem(
-          id: hero.id,
-          name: hero.nameKo,
-          description: '${hero.classIcon} ${hero.description}',
-          rarity: rarity,
-          metadata: {'category': hero.heroClass.name},
-        );
-      }).toList(),
-      completionReward: const mg_systems.CollectionReward(type: RewardType.gold, amount: 50000),
-      milestoneRewards: const {
-        25: mg_systems.CollectionReward(type: RewardType.gold, amount: 5000),
-        50: mg_systems.CollectionReward(type: RewardType.gold, amount: 15000),
-        75: mg_systems.CollectionReward(type: RewardType.gold, amount: 30000),
-      },
-    ));
-
-    // Haptic feedback callbacks (no SettingsManager — use HapticFeedback directly)
+with WidgetsBindingObserver {
+late PlayerManager _playerManager;
+late GuildManager _guildManager;
+late HeroManager _heroManager;
+late RaidManager _raidManager;
+late ShopManager _shopManager;
+late SaveManager _saveManager;
+late mg_systems.CollectionManager _collectionManager;
+bool _isLoading = true;
+@override
+void initState() {
+super.initState();
+WidgetsBinding.instance.addObserver(this);
+_initializeApp();
+}
+@override
+void dispose() {
+WidgetsBinding.instance.removeObserver(this);
+super.dispose();
+}
+@override
+void didChangeAppLifecycleState(AppLifecycleState state) {
+// Auto-save when app goes to background
+if (state == AppLifecycleState.paused) {
+_saveManager.saveGame();
+}
+}
+Future<void> _initializeApp() async {
+_playerManager = PlayerManager();
+_guildManager = GuildManager(playerManager: _playerManager);
+_heroManager = HeroManager(
+playerManager: _playerManager,
+guildManager: _guildManager,
+);
+_raidManager = RaidManager(
+playerManager: _playerManager,
+heroManager: _heroManager,
+);
+_shopManager = ShopManager(
+playerManager: _playerManager,
+heroManager: _heroManager,
+);
+_saveManager = SaveManager(
+playerManager: _playerManager,
+heroManager: _heroManager,
+guildManager: _guildManager,
+raidManager: _raidManager,
+);
+// Collection Manager
+_collectionManager = mg_systems.CollectionManager();
+if (!GetIt.I.isRegistered<mg_systems.CollectionManager>()) {
+GetIt.I.registerSingleton<mg_systems.CollectionManager>(_collectionManager);
+}
+_registerCollections();
+// Try to load save data
+final loaded = await _saveManager.loadGame();
+if (loaded) {
+debugPrint('Save data loaded successfully');
+} else {
+debugPrint('Starting new game');
+}
+setState(() {
+_isLoading = false;
+});
+// Check offline progress
+final offlineDuration = _saveManager.offlineDuration;
+if (offlineDuration != null && mounted) {
+final gold = _raidManager.calculateOfflineGold(offlineDuration);
+if (gold > 0) {
+// We need context to show dialog. But we are in _initializeApp called from initState.
+// We can't show dialog yet.
+// Wait for first frame
+WidgetsBinding.instance.addPostFrameCallback((_) {
+showDialog(
+context: context,
+builder: (_) => OfflineRewardDialog(
+duration: offlineDuration,
+goldReward: gold,
+onClaim: () {
+_playerManager.addGold(gold);
+_saveManager.clearOfflineDuration();
+},
+),
+);
+});
+}
+}
+}
+void _registerCollections() {
+// Hero Collection -- 10 heroes mapped from Heroes.all
+_collectionManager.registerCollection(mg_systems.Collection(
+id: 'hero_collection',
+name: '영웅 컬렉션',
+description: '길드의 모든 영웅을 모아보세요!',
+items: Heroes.all.map((hero) {
+final rarity = switch (hero.rarity) {
+HeroRarity.common => mg_systems.CollectionRarity.common,
+HeroRarity.rare => mg_systems.CollectionRarity.rare,
+HeroRarity.epic => mg_systems.CollectionRarity.epic,
+HeroRarity.legendary => mg_systems.CollectionRarity.legendary,
+HeroRarity.mythic => mg_systems.CollectionRarity.legendary,
+};
+return mg_systems.CollectionItem(
+id: hero.id,
+name: hero.nameKo,
+description: '${hero.classIcon} ${hero.description}',
+rarity: rarity,
+metadata: {'category': hero.heroClass.name},
+);
+}).toList(),
+completionReward: const mg_systems.CollectionReward(type: RewardType.gold, amount: 50000),
+milestoneRewards: const {
+25: mg_systems.CollectionReward(type: RewardType.gold, amount: 5000),
+50: mg_systems.CollectionReward(type: RewardType.gold, amount: 15000),
+75: mg_systems.CollectionReward(type: RewardType.gold, amount: 30000),
+},
+//     ));
+// 
+//     // Haptic feedback callbacks (no SettingsManager -- use HapticFeedback directly)
     _collectionManager.onItemUnlocked = (collectionId, itemId) {
       HapticFeedback.mediumImpact();
     };
@@ -261,7 +275,12 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return MaterialApp(
+      return MGAccessibilityProvider(
+        settings: MGAccessibilitySettings.defaults,
+        onSettingsChanged: (settings) {
+          // Settings updated
+        },
+        child: MaterialApp(
         home: Scaffold(
           backgroundColor: AppColors.background,
       endDrawer: Drawer(
@@ -278,7 +297,8 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
               ),
               ListTile(
                 leading: const Icon(Icons.shield),
-                title: const Text('Guild War'),
+                title: Text('ui_general_guild_war'.tr),
+                localizationsDelegates: mgLocalizationDelegates,
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.of(context)
@@ -296,7 +316,7 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
               ),
               ListTile(
                 leading: const Icon(Icons.celebration),
-                title: const Text('Seasonal Event'),
+                title: Text('ui_general_seasonal_event'.tr),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.of(context)
@@ -309,7 +329,8 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
       ),
           body: const Center(child: CircularProgressIndicator()),
         ),
-      );
+      ),
+    );
     }
 
     return MultiProvider(
@@ -324,6 +345,8 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
       ],
       child: MaterialApp(
         title: 'Guild of Wanderers',
+      supportedLocales: mgSupportedLocales,
+      localizationsDelegates: mgLocalizationDelegates,
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: AppColors.background,
           primaryColor: AppColors.primary,
@@ -366,8 +389,8 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
             seasonalContentManager: GetIt.I<SeasonalContentManager>(),
             accentColor: MGColors.primaryAction,
             onClose: () => Navigator.pop(context),
-            ),
-},
+          ),
+        },
       ),
     );
   }
@@ -376,30 +399,30 @@ class _GuildWanderersAppState extends State<GuildWanderersApp>
 
 void _registerDailyQuests() {
   final dailyQuest = GetIt.I<DailyQuestManager>();
-  
+
   dailyQuest.registerQuest(DailyQuest(
-    id: 'collect_gold',
-    title: '골드 모으기',
-    description: '골드 1000 획득',
-    targetValue: 1000,
+    id: 'raid_dungeons',
+    title: '던전 레이드',
+    description: '던전 3개 클리어',
+    targetValue: 3,
     goldReward: 500,
     xpReward: 10,
   ));
-  
+
   dailyQuest.registerQuest(DailyQuest(
-    id: 'play_games',
-    title: '게임 플레이',
-    description: '게임 5판 플레이',
-    targetValue: 5,
+    id: 'guild_contributions',
+    title: '길드 기여',
+    description: '길드 기여 100회',
+    targetValue: 100,
     goldReward: 300,
     xpReward: 5,
   ));
-  
+
   dailyQuest.registerQuest(DailyQuest(
-    id: 'level_up',
-    title: '레벨업',
-    description: '레벨 1 상승',
-    targetValue: 1,
+    id: 'recruit_heroes',
+    title: '영웅 모집',
+    description: '영웅 2명 모집',
+    targetValue: 2,
     goldReward: 200,
     xpReward: 3,
   ));

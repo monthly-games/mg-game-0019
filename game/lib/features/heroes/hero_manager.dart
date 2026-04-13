@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
 import 'hero_data.dart';
 import '../player/player_manager.dart';
 import '../guild/guild_manager.dart';

@@ -1,6 +1,9 @@
+import 'package:mg_common_game/core/ui/layout/mg_spacing.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../features/guild/guild_manager.dart';
+import '../features/guild/guild_manager.dart';import 'package:mg_common_game/l10n/localization.dart';
+
 
 class GuildScreen extends StatelessWidget {
   const GuildScreen({super.key});
@@ -16,21 +19,21 @@ class GuildScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('You are not in a guild.'),
-                const SizedBox(height: 20),
+                Text('ui_general_you_are_not_in_a'.tr),
+                const SizedBox(height: MGSpacing.mdLg),
                 ElevatedButton(
                   onPressed: () {
                     // Logic to show dialog? Or just quick create
                     _showCreateGuildDialog(context, guildManager);
                   },
-                  child: const Text('Create Guild (1000 Gold)'),
+                  child: Text('ui_general_create_guild_1000_gold'.tr),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: MGSpacing.xsMd),
                 ElevatedButton(
                   onPressed: () {
                     guildManager.joinRandomGuild();
                   },
-                  child: const Text('Join Random Guild'),
+                  child: Text('ui_general_join_random_guild'.tr),
                 ),
               ],
             ),
@@ -40,13 +43,13 @@ class GuildScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(title: Text(guild.name)),
           body: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(MGSpacing.md),
             child: Column(
               children: [
                 // Guild Info Card
                 Card(
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(MGSpacing.md),
                     child: Column(
                       children: [
                         Text(
@@ -56,8 +59,8 @@ class GuildScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text('EXP: ${guild.exp} / ${guild.maxExp}'),
-                        const SizedBox(height: 10),
+                        Text('ui_general_exp_guildexp_guildmaxexp'.tr),
+                        const SizedBox(height: MGSpacing.xsMd),
                         const Text(
                           'Buffs Active:',
                           style: TextStyle(fontWeight: FontWeight.bold),
@@ -73,7 +76,7 @@ class GuildScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: MGSpacing.mdLg),
 
                 // Actions
                 ElevatedButton.icon(
@@ -81,10 +84,10 @@ class GuildScreen extends StatelessWidget {
                     guildManager.donateToGuild();
                   },
                   icon: const Icon(Icons.monetization_on),
-                  label: const Text('Donate 100 Gold (+10 EXP)'),
+                  label: Text('ui_general_donate_100_gold_10_exp'.tr),
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: MGSpacing.mdLg),
 
                 // Members List
                 Expanded(
@@ -128,7 +131,7 @@ class GuildScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Create Guild'),
+        title: Text('ui_general_create_guild'.tr),
         content: TextField(
           controller: controller,
           decoration: const InputDecoration(labelText: 'Guild Name'),
@@ -146,7 +149,7 @@ class GuildScreen extends StatelessWidget {
                 // Show error (not enough gold)
               }
             },
-            child: const Text('Create'),
+            child: Text('ui_general_create_better_items'.tr),
           ),
         ],
       ),

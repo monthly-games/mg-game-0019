@@ -1,7 +1,10 @@
+import 'package:mg_common_game/core/ui/layout/mg_spacing.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../features/shop/shop_manager.dart';
-import '../features/heroes/hero_data.dart' as hero_data;
+import '../features/heroes/hero_data.dart' as hero_data;import 'package:mg_common_game/l10n/localization.dart';
+
 
 class ShopScreen extends StatelessWidget {
   const ShopScreen({super.key});
@@ -11,15 +14,15 @@ class ShopScreen extends StatelessWidget {
     return Consumer<ShopManager>(
       builder: (context, shopManager, child) {
         return Scaffold(
-          appBar: AppBar(title: const Text('Shop')),
+          appBar: AppBar(title: Text('shop_leave_shop'.tr)),
           body: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(MGSpacing.md),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // Banner / Gacha Info
                 Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(MGSpacing.mdLg),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [Colors.purple.shade900, Colors.blue.shade900],
@@ -36,7 +39,7 @@ class ShopScreen extends StatelessWidget {
                           color: Colors.amber,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: MGSpacing.xsMd),
                       Text(
                         'Mythic Rate: 1% | Legendary Rate: 4%',
                         style: TextStyle(color: Colors.white70),
@@ -45,7 +48,7 @@ class ShopScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: MGSpacing.mdLg),
 
                 // Summon Buttons
                 Row(
@@ -63,26 +66,26 @@ class ShopScreen extends StatelessWidget {
                           } else {
                             // Helper to show snackbar
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Not enough Gems!')),
+                              const SnackBar(content: Text('ui_general_not_enough_gems'.tr)),
                             );
                           }
                         },
                         child: const Column(
                           children: [
-                            Text('Summon x1'),
+                            Text('ui_general_summon_x1'.tr),
                             SizedBox(height: 5),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(Icons.diamond, size: 16),
-                                Text(' 100'),
+                                Text('ui_general_time_resulttimems_1000tostringasfixed2s'.tr),
                               ],
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const SizedBox(width: 16),
+                    const SizedBox(width: MGSpacing.md),
                     Expanded(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -95,13 +98,13 @@ class ShopScreen extends StatelessWidget {
                             _showSummonResult(context, heroes);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Not enough Gems!')),
+                              const SnackBar(content: Text('ui_general_not_enough_gems'.tr)),
                             );
                           }
                         },
                         child: const Column(
                           children: [
-                            Text('Summon x10'),
+                            Text('ui_general_summon_x10'.tr),
                             SizedBox(height: 5),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -119,23 +122,23 @@ class ShopScreen extends StatelessWidget {
 
                 const SizedBox(height: 40),
                 const Divider(),
-                const SizedBox(height: 20),
+                const SizedBox(height: MGSpacing.mdLg),
 
                 // Currency Exchange
                 ListTile(
-                  title: const Text('Buy 5000 Gold'),
-                  subtitle: const Text('Convert Gems to Gold'),
+                  title: Text('shop_buy_5000_gold'.tr),
+                  subtitle: Text('ui_general_convert_gems_to_gold'.tr),
                   trailing: ElevatedButton.icon(
                     icon: const Icon(Icons.diamond, size: 16),
-                    label: const Text('50'),
+                    label: Text('ui_general_up_50g'.tr),
                     onPressed: () {
                       if (shopManager.buyGold()) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Purchased 5000 Gold!')),
+                          const SnackBar(content: Text('shop_purchased_5000_gold'.tr)),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Not enough Gems!')),
+                          const SnackBar(content: Text('ui_general_not_enough_gems'.tr)),
                         );
                       }
                     },
@@ -153,7 +156,7 @@ class ShopScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Summon Result (${heroes.length})'),
+        title: Text('ui_general_summon_result_heroeslength'.tr),
         content: SizedBox(
           width: double.maxFinite,
           child: GridView.builder(
@@ -171,7 +174,7 @@ class ShopScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(hero.classIcon, style: const TextStyle(fontSize: 32)),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: MGSpacing.xxs),
                     Text(
                       hero.name,
                       textAlign: TextAlign.center,

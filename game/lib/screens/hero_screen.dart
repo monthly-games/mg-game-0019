@@ -1,7 +1,10 @@
+import 'package:mg_common_game/core/ui/layout/mg_spacing.dart';
+import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../features/heroes/hero_manager.dart';
-import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';import 'package:mg_common_game/l10n/localization.dart';
+
 
 class HeroScreen extends StatelessWidget {
   const HeroScreen({super.key});
@@ -9,13 +12,13 @@ class HeroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Heroes')),
+      appBar: AppBar(title: Text('ui_general_recruit_heroes'.tr)),
       body: Consumer<HeroManager>(
         builder: (context, heroManager, child) {
           final heroes = heroManager.ownedHeroes;
 
           if (heroes.isEmpty) {
-            return const Center(child: Text('No heroes recruited yet!'));
+            return Center(child: Text('ui_general_no_heroes_recruited_yet'.tr));
           }
 
           return ListView.builder(
@@ -29,10 +32,10 @@ class HeroScreen extends StatelessWidget {
               final cost = instance.getLevelUpCost();
 
               return Card(
-                margin: const EdgeInsets.all(8),
+                margin: const EdgeInsets.all(MGSpacing.xs),
                 color: Colors.grey[900],
                 child: Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(MGSpacing.sm),
                   child: Row(
                     children: [
                       // Icon / Rarity
@@ -51,7 +54,7 @@ class HeroScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      const SizedBox(width: MGSpacing.md),
 
                       // Info
                       Expanded(
@@ -101,12 +104,12 @@ class HeroScreen extends StatelessWidget {
                             ),
                             child: Text(instance.isInTeam ? 'Remove' : 'Equip'),
                           ),
-                          const SizedBox(height: 4),
+                          const SizedBox(height: MGSpacing.xxs),
                           TextButton(
                             onPressed: () {
                               heroManager.levelUpHero(instance.heroId);
                             },
-                            child: Text('Up ($cost G)'),
+                            child: Text('ui_general_up_cost_g'.tr),
                           ),
                         ],
                       ),
