@@ -2,7 +2,7 @@ import 'package:mg_common_game/core/ui/layout/mg_spacing.dart';
 import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../features/guild/guild_manager.dart';import 'package:mg_common_game/l10n/localization.dart';
+import '../features/guild/guild_manager.dart';
 
 
 class GuildScreen extends StatelessWidget {

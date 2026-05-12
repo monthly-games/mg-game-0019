@@ -1,9 +1,9 @@
 // import 'package:mg_common_game/systems/balancing/balancing.dart'; // Temporarily disabled - module doesn't exist yet
 
-/// Default balancing configuration for MG-0019: Guild of Wanderers.
-///
-/// Placeholder values -- override via RemoteConfig using
-/// BalancingManager.loadFromRemote in production.
+// Default balancing configuration for MG-0019: Guild of Wanderers.
+//
+// Placeholder values -- override via RemoteConfig using
+// BalancingManager.loadFromRemote in production.
 // const kDefaultBalancingConfig = BalancingConfig(
 //   gameId: 'mg-0019',
 //   version: 1,

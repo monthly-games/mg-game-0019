@@ -3,7 +3,7 @@ import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:flutter/material.dart' hide Hero;
 import 'package:provider/provider.dart';
 import 'package:mg_common_game/core/ui/theme/app_colors.dart';
-import 'package:mg_common_game/core/ui/theme/app_text_styles.dart';import 'package:mg_common_game/l10n/localization.dart';
+import 'package:mg_common_game/core/ui/theme/app_text_styles.dart';
 
 
 import '../features/player/player_manager.dart';
@@ -225,7 +225,7 @@ class HeroesScreen extends StatelessWidget {
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('ui_general_팀이_가득_찼습니다_최대_5명'.tr)),
+                            SnackBar(content: Text('ui_general_팀이_가득_찼습니다_최대_5명'.tr)),
                           );
                         }
                       }

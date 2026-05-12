@@ -3,7 +3,7 @@ import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../features/shop/shop_manager.dart';
-import '../features/heroes/hero_data.dart' as hero_data;import 'package:mg_common_game/l10n/localization.dart';
+import '../features/heroes/hero_data.dart' as hero_data;
 
 
 class ShopScreen extends StatelessWidget {
@@ -66,18 +66,18 @@ class ShopScreen extends StatelessWidget {
                           } else {
                             // Helper to show snackbar
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('ui_general_not_enough_gems'.tr)),
+                              SnackBar(content: Text('ui_general_not_enough_gems'.tr)),
                             );
                           }
                         },
-                        child: const Column(
+                        child: Column(
                           children: [
                             Text('ui_general_summon_x1'.tr),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.diamond, size: 16),
+                                const Icon(Icons.diamond, size: 16),
                                 Text('ui_general_time_resulttimems_1000tostringasfixed2s'.tr),
                               ],
                             ),
@@ -98,15 +98,15 @@ class ShopScreen extends StatelessWidget {
                             _showSummonResult(context, heroes);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('ui_general_not_enough_gems'.tr)),
+                              SnackBar(content: Text('ui_general_not_enough_gems'.tr)),
                             );
                           }
                         },
-                        child: const Column(
+                        child: Column(
                           children: [
                             Text('ui_general_summon_x10'.tr),
-                            SizedBox(height: 5),
-                            Row(
+                            const SizedBox(height: 5),
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(Icons.diamond, size: 16),
@@ -134,11 +134,11 @@ class ShopScreen extends StatelessWidget {
                     onPressed: () {
                       if (shopManager.buyGold()) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('shop_purchased_5000_gold'.tr)),
+                          SnackBar(content: Text('shop_purchased_5000_gold'.tr)),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('ui_general_not_enough_gems'.tr)),
+                          SnackBar(content: Text('ui_general_not_enough_gems'.tr)),
                         );
                       }
                     },

@@ -3,7 +3,7 @@ import 'package:mg_common_game/core/localization/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../features/heroes/hero_manager.dart';
-import 'package:mg_common_game/core/ui/theme/mg_colors.dart';import 'package:mg_common_game/l10n/localization.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 
 class HeroScreen extends StatelessWidget {
@@ -29,8 +29,6 @@ class HeroScreen extends StatelessWidget {
               if (hero == null) return const SizedBox.shrink();
 
               final stats = instance.currentStats!;
-              final cost = instance.getLevelUpCost();
-
               return Card(
                 margin: const EdgeInsets.all(MGSpacing.xs),
                 color: Colors.grey[900],

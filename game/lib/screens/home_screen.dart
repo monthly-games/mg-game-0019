@@ -7,7 +7,7 @@ import 'raid_screen.dart';
 import 'hero_screen.dart';
 import 'guild_screen.dart';
 import 'shop_screen.dart'; // Import
-import 'package:mg_common_game/core/ui/theme/mg_colors.dart';import 'package:mg_common_game/l10n/localization.dart';
+import 'package:mg_common_game/core/ui/theme/mg_colors.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -72,13 +72,13 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.sports_kabaddi),
-            label: 'ui_general_battle_pass'.tr,
+            label: 'Battle',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.people), label: 'ui_general_recruit_heroes'.tr),
-          BottomNavigationBarItem(icon: Icon(Icons.shield), label: 'ui_general_guild_war'.tr),
+          BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Heroes'),
+          BottomNavigationBarItem(icon: Icon(Icons.shield), label: 'Guild'),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
-            label: 'shop_leave_shop'.tr,
+            label: 'Shop',
           ),
         ],
         currentIndex: _selectedIndex,
